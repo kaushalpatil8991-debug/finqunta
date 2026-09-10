@@ -1,0 +1,81 @@
+export const meta = {
+  slug: "mumbai-ngo",
+  title: "Mumbai NGO cuts funder-reporting cycle from weeks to hours",
+  customer: "Aarambh Foundation",
+  sector: "NGO & Grants",
+  excerpt:
+    "NGO vertical pack + project-wise fund accounting collapsed a 3-week funder-reporting cycle into a same-day export. FCRA prep now takes an hour.",
+  summary:
+    "Aarambh Foundation — a Mumbai-based NGO running 9 concurrent projects across 4 funders including FCRA-regulated grants — was burning 3 weeks every quarter on funder reports. Our NGO vertical pack rebuilt project-wise accounting, automated utilisation reports in 5 funder formats, and stood up one-click 80G and FCRA workflows. Reporting cycle now measured in hours; auditors sign off without follow-up.",
+  date: "2025-09-10",
+  metrics: [
+    { label: "Funder reporting cycle", value: "3 weeks → same day" },
+    { label: "Projects under tracking", value: "9 active, 14 lifetime" },
+    { label: "80G receipts time", value: "Batch-generated, 0 manual" },
+    { label: "FCRA quarterly return prep", value: "1 full day → 1 hour" },
+  ],
+  gradient: "cream-gold",
+};
+
+## The setup before
+
+Aarambh Foundation is a mid-sized NGO working on education and skill-development in rural Maharashtra. Scale: ₹6.2 Cr annual spend, 9 concurrent projects, 4 funders (2 corporate CSR, 1 state government, 1 FCRA-regulated multilateral), ~30 employees + ~80 field volunteers.
+
+Their Tally was technically clean — all vouchers posted, all banks reconciled — but the accounting structure wasn't built for NGO workflows:
+
+- **Projects mixed on the same ledgers.** Pulling a single project's utilisation required filtering and Excel acrobatics.
+- **80G receipts** issued by hand from a Word template, with a 2-week lag on bulk donations.
+- **Funder reports** prepared from scratch each quarter, taking a full 3 weeks including iteration on funder-specific format requests.
+- **FCRA return** took a full working day each quarter — largely tracing FCRA-fund transactions across commingled ledgers.
+- **Statutory audit** came with 4-5 rounds of follow-up from the auditor because utilisation trails were hard to walk.
+
+## What we deployed
+
+**Phase 1 (weeks 1–3): Project-wise fund accounting**
+We rebuilt the chart of accounts to support project-wise accounting — every voucher now carries a project tag, every ledger can be viewed at project granularity. Existing vouchers were back-tagged for the current financial year.
+
+**Phase 2 (weeks 4–5): Funder report templates**
+Five funder-report templates were built: FCRA, state government, and three corporate-CSR variants. Each draws from Tally directly; quarterly close now produces funder-ready reports at the same time as management accounts.
+
+**Phase 3 (weeks 6–7): Donor workflow automation**
+80G receipt generation was automated at donation-time (receipt on the day, not the month). Year-end Form 10BE batch export was configured.
+
+**Phase 4 (week 8): FCRA ring-fencing**
+The FCRA bank account and all FCRA-funded projects were ring-fenced in the chart of accounts. FCRA quarterly return now generates in one pass from Tally — auto-populated, ready to review.
+
+**Phase 5 (week 9–10): Training + audit-readiness walk-through**
+Training for the accounts and programme teams. We also did a joint walk-through with their statutory auditor to align on the new structure — the auditor was delighted.
+
+## The outcome
+
+Three quarters after rollout:
+
+- **Funder report cycle**: 3 weeks → same-day (for all 4 funders)
+- **80G receipts**: generated at donation-time, zero manual effort
+- **FCRA quarterly return prep**: 8 hours → 1 hour
+- **Statutory auditor follow-ups**: 4-5 rounds → 1 round (clarifying minor items)
+- **Programme team visibility**: each project lead now self-serves their own utilisation report weekly
+
+The finance head's comment: *"For the first time, I'm not scared of quarter-end."*
+
+## Stack deployed
+
+- TallyPrime Gold (upgraded from ERP 9 during engagement)
+- NGO vertical pack
+- Smart Backup++ (FCRA compliance requirement — off-site backup)
+- Audit Trail add-on
+- 5 custom funder-report templates
+
+## Quote
+
+> "Our funders noticed. The first FCRA report we sent under the new system came back with zero follow-up questions — a first in my seven years here."
+>
+> — Head of Finance, Aarambh Foundation
+
+## What's next
+
+Aarambh is now looking at a donor-engagement mobile app and tighter integration with their field-visit reporting tool.
+
+---
+
+*NGO, trust, or grants-funded organisation? [Scope an NGO-pack engagement](#enquiry).*

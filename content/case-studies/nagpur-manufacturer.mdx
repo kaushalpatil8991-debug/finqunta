@@ -1,0 +1,76 @@
+export const meta = {
+  slug: "nagpur-manufacturer",
+  title: "Nagpur engineering manufacturer rebuilds production cost clarity",
+  customer: "Deccan Polymers",
+  sector: "Engineering Manufacturing",
+  excerpt:
+    "Manufacturing vertical pack + BOM-driven production costing gave a mid-sized polymer manufacturer clean per-batch cost visibility for the first time in 8 years.",
+  summary:
+    "Deccan Polymers — a Nagpur-based engineering polymer manufacturer with 14 SKUs and job-work components — operated for 8 years without clean per-batch production costing. Our Manufacturing vertical pack rebuilt their BOM model, wired job-work into vouchers, and stood up a monthly production cost sheet that the CEO now uses for pricing decisions.",
+  date: "2025-11-22",
+  metrics: [
+    { label: "SKUs under BOM", value: "14 finished, 38 sub-assemblies" },
+    { label: "Per-batch cost accuracy", value: "±3% (from ±22%)" },
+    { label: "Pricing decisions monthly", value: "From 0 to 6" },
+    { label: "Go-live", value: "7 weeks" },
+  ],
+  gradient: "violet",
+};
+
+## The setup before
+
+Deccan Polymers manufactures specialty engineering polymers for the automotive, agricultural, and electrical industries. Scale: mid-sized, ~60 shop-floor staff, ~₹42 Cr annual turnover, 14 finished-good SKUs, extensive job-work partnerships for secondary operations.
+
+What was working: the accounting layer. TallyPrime Gold on-prem, clean bookkeeping, GST compliance in order.
+
+What was not working: production costing. The CEO could tell you monthly P&L to the rupee, but *per-SKU* profitability was a quarterly-at-best exercise, done in Excel from Tally extracts, with assumptions that drifted over time. Pricing decisions were being made on hunch.
+
+Two specific issues compounded:
+
+1. **BOM model was incomplete.** Multi-stage sub-assemblies were collapsed into single BOMs, hiding yield losses at intermediate stages.
+2. **Job-work was off-book.** Material-out, material-in, and value-addition were tracked in spreadsheets because the Tally voucher flow felt too rigid.
+
+## What we deployed
+
+**Phase 1 (weeks 1–2): BOM audit + rebuild**
+We walked every finished good from raw material through to despatch. 38 sub-assembly BOMs were documented; 14 multi-level BOMs for finished goods were rebuilt. Cost roll-up was configured to honour the new structure.
+
+**Phase 2 (weeks 3–4): Job-work vouchers**
+The Manufacturing vertical pack's job-work vouchers were configured — material-out, material-in, value-addition, job-worker settlement — all on the same reconciliation screen. Historical spreadsheets were validated against Tally and archived.
+
+**Phase 3 (weeks 5–6): Production costing TDL**
+Custom TDL built for per-batch production cost sheets. Each production-order closure now produces: material cost (at standard + actual), labour cost (allocation rule), overhead (activity-based), variance against standard. Output ships to the CEO's email as a PDF.
+
+**Phase 4 (week 7): Training + go-live**
+Shop-floor supervisors, production planners, and the costing team all received role-specific training. The CEO got a 90-minute walk-through of the monthly cost sheet format.
+
+## The outcome
+
+After three closed production cycles:
+
+- **Per-batch cost accuracy**: tightened from ±22% (Excel-era) to ±3% (Tally-native)
+- **Pricing reviews**: the CEO now runs a monthly pricing review using real per-SKU margin data. Six SKUs were repriced in the first quarter.
+- **Yield visibility**: sub-assembly yield losses, previously invisible, are now reported weekly. Three yield-improvement projects started.
+- **Audit cycle**: statutory auditor's working-paper prep time halved — they now self-serve from the job-work reconciliation screen.
+
+## Stack deployed
+
+- TallyPrime Gold (existing)
+- Manufacturing vertical pack
+- Custom production-costing TDL
+- Sheet Magic add-on (for the CEO's Excel pivot view)
+- Audit Trail add-on
+
+## Quote
+
+> "For the first time in eight years, I can tell you which of my fourteen SKUs is actually profitable — and by how much. We'd been flying on assumptions."
+>
+> — CEO, Deccan Polymers
+
+## What's next
+
+Deccan is exploring the **MIS Booster** for a monthly board pack, and a pilot of the **Sales Order Booking** mobile app for their 6 field sales reps.
+
+---
+
+*Manufacturing engagement? [Scope a BOM rebuild](#enquiry).*

@@ -1,0 +1,61 @@
+export const meta = {
+  slug: "tallyprime-migration-guide",
+  title: "The quiet guide to migrating from Tally ERP 9 to TallyPrime",
+  excerpt:
+    "A step-by-step guide to upgrading your Tally ERP 9 installation to TallyPrime — with zero data loss and a calm cutover plan.",
+  date: "2026-04-15",
+  author: "Finquanta Team",
+  tags: ["tally", "product", "how-to"],
+  readMinutes: 8,
+  gradient: "plum",
+};
+
+## Why migrate at all?
+
+Tally ERP 9 is stable, well-understood, and hundreds of thousands of Indian SMEs still run it happily. But Tally Solutions has moved on: new GST features, e-invoice enhancements, dashboard capabilities, and connected banking ship only on **TallyPrime**. Sooner or later the migration is non-optional.
+
+The good news: the TallyPrime data format is compatible with ERP 9's — the migration is not a re-implementation, it is an upgrade-in-place. The friction is almost entirely human: retraining your team on a rearranged keyboard map.
+
+## What the migration actually involves
+
+At a high level there are four workstreams, all of which can run in parallel:
+
+1. **Data validation.** Confirm your ERP 9 data is clean — balanced books, no orphan masters, no corrupted vouchers. Finquanta does this as a standard pre-migration audit; the fix list is usually short.
+2. **TDL port.** Any custom TDL on ERP 9 may need small tweaks for TallyPrime. Most of the time this is a matter of updating screen references; occasionally a wholesale rewrite for features that depended on ERP 9-specific UI.
+3. **Training.** TallyPrime re-arranges the keyboard shortcuts and menu layout. The big-bang first hour can feel disorientating. Role-based training (4 hours per role is typical) smooths this out.
+4. **Cutover.** A planned weekend cutover with a parallel run for 7–14 days is the safe pattern. Rollback to ERP 9 is always available during the parallel-run window.
+
+## The cutover playbook
+
+A zero-drama cutover typically looks like this:
+
+| Day | Step |
+| --- | --- |
+| T-14 | Pre-migration audit. Fix any data-consistency issues identified. |
+| T-10 | TDL validation + port on a copy of the data. |
+| T-7  | First round of role-based training. Assign a TallyPrime champion per team. |
+| T-1  | Final ERP 9 backup. |
+| T-0 (Sat 18:00) | Convert data to TallyPrime. Install TallyPrime on primary machines. |
+| T-0 (Sun 10:00) | Spot-check reports against ERP 9 archive. Sign off cutover. |
+| T+1 → T+7 | Parallel-run window. Support channel on WhatsApp for the team. Daily standup. |
+| T+14 | Formal sign-off. ERP 9 archived. |
+
+## The training question
+
+The single thing most teams underestimate is the training demand. TallyPrime's "Go To" navigation is strictly better than ERP 9's menu tree — but it is *different*, and muscle memory takes two weeks to rewire.
+
+We recommend investing in **two rounds of training**: one a week *before* cutover (on a sandbox) and one a week *after* (on live data with real vouchers). The second round catches all the "how do I…" questions your team only discovers when they try to do their real job.
+
+## A note on TSS
+
+Tally Software Services — the annual subscription — is what delivers ongoing statutory updates. Most ERP 9 installations in the wild have let TSS lapse. **Renew TSS during the migration**, not after; this gets you the latest TallyPrime build and every subsequent patch as it ships.
+
+## When Finquanta is involved
+
+We handle everything above end-to-end for customers on active AMC. For standalone migration projects, our usual timeline is **3–5 weeks from kick-off**, including two training rounds and a two-week parallel-run window.
+
+If you have 25+ users or multi-branch setup, the timeline extends to 6–8 weeks — mostly for the sync-and-reconcile testing across branches.
+
+---
+
+*Finquanta is a Tally Partner for Indian SMEs. [Scope a migration quote](#enquiry) or [talk to us](#talk) about your setup.*

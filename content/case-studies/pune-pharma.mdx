@@ -1,0 +1,76 @@
+export const meta = {
+  slug: "pune-pharma",
+  title: "Pune pharma distributor stops losing stock to expiry",
+  customer: "Sahyadri Pharma",
+  sector: "Pharma Distribution",
+  excerpt:
+    "Pharma vertical pack with FEFO batch/expiry and 90-day expiry alerts reduced expiry losses by 42% in the first full year.",
+  summary:
+    "Sahyadri Pharma — a Pune-based pharma distributor handling 2,200 SKUs across 4 warehouses — was writing off roughly ₹18 lakhs of stock a year to expiry. We rolled out our Pharma vertical pack with FEFO issue rules and multi-stage expiry alerting. Year-on-year expiry losses dropped 42%, and regulatory inspections now wrap in hours instead of days.",
+  date: "2026-02-02",
+  metrics: [
+    { label: "Expiry losses", value: "-42% YoY" },
+    { label: "SKUs under FEFO", value: "2,200" },
+    { label: "FDA inspection time", value: "3 days → 4 hours" },
+    { label: "Warehouses live", value: "4" },
+  ],
+  gradient: "sand",
+};
+
+## The setup before
+
+Sahyadri Pharma is a regional pharma distributor serving hospitals and retail pharmacies across western Maharashtra. Pre-engagement profile:
+
+- **2,200 SKUs** with batch and expiry tracking (mandatory for pharma)
+- **4 warehouses** with regional stock positions
+- **₹18 lakhs annual write-off** to expired stock — structurally the biggest controllable cost
+- **FDA inspections** consuming 3 full days each because statutory registers (Schedule-H, narcotics) were prepared by hand from Tally reports
+- **Batch recalls** were the scariest thing — the last one took 6 hours to trace customer impact
+
+The operations head put it plainly: *"Pharma is a low-margin, high-stakes business. We cannot afford the expiry leakage, and we cannot afford a 6-hour recall."*
+
+## What we deployed
+
+**Phase 1 (weeks 1–3): Pharma vertical pack rollout**
+We configured the Pharma vertical pack on their existing TallyPrime Gold installation. The core change: every item moved to batch + expiry tracking with FEFO (first-expiry-first-out) issue rules. Invoices automatically pick the nearest-expiry batch; overrides require manager approval with reason code.
+
+**Phase 2 (weeks 4–5): Expiry alerting + reporting**
+Multi-stage expiry alerts were configured: 90-day, 60-day, and 30-day warnings. The 90-day alert triggers a review for movement planning (can we push this stock to higher-turnover customers?). The 60-day alert triggers a price review (can we clear it with a discount?). The 30-day alert triggers a write-off estimation.
+
+**Phase 3 (weeks 6–8): Statutory registers + recall workflow**
+Schedule-H and narcotics registers were automated — one-click export in FDA-expected format. We also built a batch-recall workflow: scan the batch number, get customer impact (who received it, when, quantities) in under 30 seconds.
+
+**Phase 4 (ongoing): Monthly reviews**
+Monthly review with ops head covering: expiry buckets, FEFO overrides, stock rotation by category, upcoming 90-day expiries. Review is 30 minutes; output is a 2-page action list.
+
+## The outcome
+
+First full year after rollout:
+
+- **Expiry losses**: down from ₹18 L to ₹10.4 L (-42%)
+- **90-day review hit rate**: 87% of flagged SKUs cleared before 30-day expiry
+- **FDA inspection time**: 3 days → 4 hours average (statutory registers ready on day one)
+- **Batch recalls**: two trials run (internal mock), both completed within 3 minutes
+- **Operations head stress index** (self-reported): *"Meaningfully lower."*
+
+## Stack deployed
+
+- TallyPrime Gold (existing)
+- Pharma vertical pack
+- Smart Backup++ add-on
+- Audit Trail add-on (statutory compliance)
+- Custom batch-recall TDL
+
+## Quote
+
+> "The 90-day alerts are the thing that changed the culture. Before, expiry was a month-end surprise. Now every Monday we talk about what's due to expire in 90 days and we make decisions about it. The leakage didn't go down because of technology — it went down because we started looking."
+>
+> — Head of Operations, Sahyadri Pharma
+
+## What's next
+
+Sahyadri is exploring two add-ons for Q3: temperature-log integration (their cold-chain products require chain-of-custody documentation) and the **Outstanding Reminder Bot** for receivables tightening.
+
+---
+
+*Pharma, medical, or any batch-expiry-sensitive sector? [Scope a pharma engagement](#enquiry).*

@@ -1,0 +1,246 @@
+import { OfferingTabSchema, type OfferingTab } from "@/lib/schema";
+import { z } from "zod";
+
+/**
+ * 6 tabs of offerings, each with 3–5 cards. All `comingSoon: true` since
+ * inner pages live in SP2+; cards render with hover-tooltip "Detailed page
+ * coming in the next release". Spec §4.3.
+ */
+const raw: OfferingTab[] = [
+  {
+    id: "tab-products",
+    label: "Products",
+    items: [
+      {
+        id: "p-tally-prime",
+        title: "TallyPrime",
+        body: "Latest TallyPrime licenses, single and multi-user editions with on-call activation support.",
+        href: "/tally-erp-9-products",
+        ctaLabel: "Free trial",
+        icon: "Box",
+        comingSoon: false,
+      },
+      {
+        id: "p-tally-server",
+        title: "TallyPrime Server",
+        body: "Multi-user concurrent access for teams of 10+, with administrative controls and high concurrency.",
+        href: "/tally-erp-9-products",
+        ctaLabel: "Free trial",
+        icon: "Server",
+        comingSoon: false,
+      },
+      {
+        id: "p-tally-ca",
+        title: "Tally for CA (Auditor's Edition)",
+        body: "Tally Auditors Edition for chartered accountants — read-only client-data analysis with audit trail.",
+        href: "/tally-erp-9-products",
+        icon: "BookOpen",
+        comingSoon: false,
+      },
+      {
+        id: "p-tally-tss",
+        title: "Tally Software Services (TSS)",
+        body: "Subscription that keeps your Tally current with the latest releases, features, and statutory updates.",
+        href: "/tally-erp-9-products",
+        ctaLabel: "Renew",
+        icon: "RefreshCcw",
+        comingSoon: false,
+      },
+    ],
+  },
+  {
+    id: "tab-services",
+    label: "Services",
+    items: [
+      {
+        id: "s-amc",
+        title: "AMC / Annual Support Cover",
+        body: "Predictable annual support — onsite plus remote — with priority response and quarterly health checks.",
+        href: "/tally-services",
+        icon: "ShieldCheck",
+        comingSoon: false,
+      },
+      {
+        id: "s-data-sync",
+        title: "Data Synchronisation",
+        body: "Branch-to-HQ Tally sync configured and monitored. Conflict-free reconciliation across locations.",
+        href: "/tally-services",
+        icon: "RefreshCw",
+        comingSoon: false,
+      },
+      {
+        id: "s-training",
+        title: "Tally Training",
+        body: "Role-based training for accounts, sales, and management teams — onsite or virtual, with certificates.",
+        href: "/tally-services",
+        icon: "GraduationCap",
+        comingSoon: false,
+      },
+      {
+        id: "s-priority",
+        title: "Priority Support",
+        body: "Sub-hour response SLAs and a dedicated account engineer for businesses where Tally cannot stop.",
+        href: "/tally-services",
+        icon: "Headphones",
+        comingSoon: false,
+      },
+      {
+        id: "s-onsite-remote",
+        title: "Onsite & Remote Support",
+        body: "Regional engineers for hands-on visits, plus secure remote sessions for everything else.",
+        href: "/tally-services",
+        icon: "Wrench",
+        comingSoon: false,
+      },
+    ],
+  },
+  {
+    id: "tab-mobile",
+    label: "Mobile Apps",
+    items: [
+      {
+        id: "m-dashboard",
+        title: "Business Dashboard",
+        body: "Sales, receivables, stock, and bank balances on your phone — synced to your Tally in real time.",
+        href: "/tally-mobile-apps",
+        icon: "LayoutDashboard",
+        comingSoon: false,
+      },
+      {
+        id: "m-customer",
+        title: "Customer Profiling",
+        body: "Field reps view customer history, outstanding, and credit limits before every sales call.",
+        href: "/tally-mobile-apps",
+        icon: "UserSearch",
+        comingSoon: false,
+      },
+      {
+        id: "m-trans-approval",
+        title: "Transaction Approvals",
+        body: "Approve discounts, credit notes, and large orders from your phone — with full audit trail.",
+        href: "/tally-mobile-apps",
+        icon: "CheckSquare",
+        comingSoon: false,
+      },
+      {
+        id: "m-sales-order",
+        title: "Sales Order Booking",
+        body: "Field sales order booking that lands directly in Tally as draft sales orders, with item lookup and pricing.",
+        href: "/tally-mobile-apps",
+        icon: "ShoppingCart",
+        comingSoon: false,
+      },
+    ],
+  },
+  {
+    id: "tab-solutions",
+    label: "Solutions",
+    items: [
+      {
+        id: "sl-vertical",
+        title: "Vertical Solutions",
+        body: "Industry packs for trading, manufacturing, distribution, services — preconfigured masters and reports.",
+        href: "/tally-erp-9-vertical-solutions",
+        icon: "Layers",
+        comingSoon: false,
+      },
+      {
+        id: "sl-customization",
+        title: "Tally Customisation",
+        body: "Bespoke vouchers, invoice formats, reports, and workflows tailored to your SOPs.",
+        href: "/tally-customization",
+        icon: "Settings2",
+        comingSoon: false,
+      },
+      {
+        id: "sl-integration",
+        title: "Integrations & APIs",
+        body: "Connect Tally to your e-commerce, payment gateway, CRM, banking, or custom in-house systems.",
+        href: "/tally-integration",
+        icon: "Link2",
+        comingSoon: false,
+      },
+      {
+        id: "sl-gst",
+        title: "Tally GST",
+        body: "End-to-end GST workflow — invoicing, e-invoice, e-way bill, returns and reconciliation.",
+        href: "/tally-gst",
+        icon: "FileCheck2",
+        comingSoon: false,
+      },
+    ],
+  },
+  {
+    id: "tab-addons",
+    label: "Add-Ons",
+    items: [
+      {
+        id: "ao-smart-backup",
+        title: "Smart Backup++",
+        body: "Scheduled, encrypted, off-site Tally backups with one-click restore. Never lose a day of data.",
+        href: "/tally-erp-9-add-ons-modules",
+        icon: "Database",
+        comingSoon: false,
+      },
+      {
+        id: "ao-multi-attach",
+        title: "Multi File Attachment",
+        body: "Attach POs, invoices, and supporting documents to any Tally voucher. Searchable and audit-friendly.",
+        href: "/tally-erp-9-add-ons-modules",
+        icon: "Paperclip",
+        comingSoon: false,
+      },
+      {
+        id: "ao-sheet-magic",
+        title: "Sheet Magic",
+        body: "Pull any Tally report into Excel with a refresh button. Pivot, format, and email — same as before, faster.",
+        href: "/tally-erp-9-add-ons-modules",
+        icon: "Sheet",
+        comingSoon: false,
+      },
+      {
+        id: "ao-audit-trail",
+        title: "Audit Trail with Voucher History",
+        body: "Track every voucher edit — who, when, what changed. Export-ready audit reports.",
+        href: "/tally-erp-9-add-ons-modules",
+        icon: "History",
+        comingSoon: false,
+      },
+      {
+        id: "ao-view-all",
+        title: "View all add-ons →",
+        body: "15+ modules across security, automation, productivity, and reporting. Browse the full catalogue.",
+        href: "/tally-erp-9-add-ons-modules",
+        ctaLabel: "Browse",
+        icon: "Grid3x3",
+        comingSoon: false,
+      },
+    ],
+  },
+  {
+    id: "tab-cloud",
+    label: "Tally on Cloud",
+    items: [
+      {
+        id: "tc-bridge",
+        title: "Run Tally on the cloud",
+        body: "Hosted Tally Prime with daily backups, multi-user access, and 99.9% uptime. Scroll down for details.",
+        href: "#cloud",
+        ctaLabel: "Jump to section",
+        icon: "Cloud",
+        comingSoon: false,
+      },
+      {
+        id: "tc-demo",
+        title: "Free demo",
+        body: "Book a 30-minute walkthrough — see your own Tally on cloud, with your data, before you commit.",
+        href: "#talk",
+        ctaLabel: "Book demo",
+        icon: "PlayCircle",
+        comingSoon: false,
+      },
+    ],
+  },
+];
+
+export const offeringTabs = z.array(OfferingTabSchema).parse(raw);

@@ -1,0 +1,67 @@
+export const meta = {
+  slug: "gst-workflow-essentials",
+  title: "Nine checks to keep your Tally GST workflow clean every month",
+  excerpt:
+    "Practical GST hygiene for SMEs running TallyPrime — from HSN codes to 2A/2B reconciliation — in a monthly rhythm you can keep up with.",
+  date: "2026-04-02",
+  author: "Finquanta Team",
+  tags: ["gst", "compliance", "how-to"],
+  readMinutes: 6,
+  gradient: "cream-gold",
+};
+
+## The monthly rhythm
+
+GST compliance is not a one-time setup. It is a monthly rhythm of small, repeatable checks. Skip them and things drift — usually silently — until a notice arrives. Run them every month and your GSTR-1 and GSTR-3B filings stop being an exercise in archaeology.
+
+Here are the nine checks we run for every Finquanta customer on AMC, in roughly the order we run them.
+
+## 1. HSN / SAC master audit
+
+Every item and service in Tally should carry a valid HSN or SAC code. Wrong codes produce wrong tax amounts on invoices. Run a once-monthly audit of the item master; flag blanks, invalid codes, and codes that do not match the item's nature.
+
+## 2. GSTIN validation on customers and suppliers
+
+Customer / supplier ledgers should carry the GSTIN of the registered party. Validate format (15 characters, structured). For B2B, validate state code matches the billing address. Invalid GSTINs invalidate downstream invoices.
+
+## 3. Voucher-level tax rate audit
+
+For each voucher type, audit whether the tax rate is being picked from item, stock group, or default. Inconsistent picks produce variant tax amounts on superficially identical vouchers. Standardise in the voucher class.
+
+## 4. E-invoice generation coverage
+
+If you are above the e-invoice threshold, every B2B invoice above the threshold should generate an IRN. Check your month-end e-invoice coverage is 100%. Missing IRNs land you in GSTR-1 discrepancies next month.
+
+## 5. E-way bill coverage
+
+Similar to e-invoice — every qualifying movement of goods should raise an e-way bill. Missing e-way bills are low-ticket individually but high-ticket in aggregate.
+
+## 6. Advance receipts + outstanding RCM
+
+Advance receipts (on which GST is chargeable at receipt) and reverse-charge invoices both need to reconcile with the books. Walk the advance-receipts register monthly.
+
+## 7. GSTR-2A / 2B match
+
+Download GSTR-2A / 2B on the 14th of the month (after supplier filings cut off). Match against your purchase register — line-by-line, not at summary level. Mismatches fall into:
+
+- **Missing from 2A**: supplier hasn't filed. Chase them.
+- **Extra in 2A**: fake / duplicate entry against your GSTIN. Flag to supplier and potentially to GST.
+- **Amount mismatch**: supplier filed at a different amount. Reconcile.
+
+## 8. ITC claim accuracy
+
+Claim ITC only on what appears in your matched 2A/2B. Do not claim on invoices missing from 2B. (You can carry forward the claim to the month it appears.) This one rule prevents most GST notices we see in the field.
+
+## 9. GSTR-1 + GSTR-3B prepare and review
+
+On the 20th of the month, prepare GSTR-1 from Tally. Review the summary — B2B, B2C, exports, credit notes. Prepare GSTR-3B in parallel. Cross-check that the total GST liability from GSTR-1 matches GSTR-3B output tax row.
+
+## A few pointers
+
+- **Automate every check** that can be automated. Our **Reconciliation Booster** bundles #7 and #9 into a single Monday-morning email digest.
+- **Log every exception** with a short note on how you resolved it. This builds institutional memory and speeds up audit cycles.
+- **Do the 9 checks even if you file quarterly (QRMP).** The rhythm is what produces the hygiene, not the filing frequency.
+
+---
+
+*For an AMC-covered GST review of your current setup, [talk to Finquanta](#talk).*

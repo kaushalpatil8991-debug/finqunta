@@ -1,0 +1,73 @@
+export const meta = {
+  slug: "nashik-distribution",
+  title: "A Nashik distribution house reclaims a day a month",
+  customer: "Konkan Traders",
+  sector: "Distribution & Trading",
+  excerpt:
+    "Branch-to-HQ sync + reconciliation booster shaved a full day off month-end close for a 45-user Tally shop spread across 3 godowns.",
+  summary:
+    "Konkan Traders — a Nashik-based distribution house with 3 godowns and 45 daily Tally users — was losing a full day every month-end to branch-vs-HQ reconciliation. We rolled out data sync, the reconciliation booster, and a tightened voucher-approval flow. Month-end close dropped from 6 days to 2, and the accounts team stopped staying late for month-end.",
+  date: "2026-03-18",
+  metrics: [
+    { label: "Month-end close", value: "6 days → 2 days" },
+    { label: "Reconciliation time", value: "-68% vs baseline" },
+    { label: "Users on Tally", value: "45 across 3 godowns" },
+    { label: "Go-live", value: "2 weeks" },
+  ],
+  gradient: "plum",
+};
+
+## The setup before
+
+Konkan Traders runs a mid-sized distribution business across Nashik, Pune, and Ahmednagar — three godowns, roughly 45 daily Tally users, ~18,000 SKUs across FMCG and general trade. Before engaging Finquanta, their Tally landscape was:
+
+- **Three separate Tally companies** (one per godown) running on TallyPrime Gold
+- **Manual consolidation** every month — a senior accountant emailed data files between branches and merged them in a 4th master Tally
+- **Branch-to-HQ discrepancies** found only at month-end, requiring one-off voucher adjustments to explain
+- **Commission calculations** for 12 sales reps built in a separate Excel workbook that pulled Tally exports
+
+The accounts head estimated month-end close was consuming 6 full business days, with the last two spent explaining discrepancies to the CEO rather than fixing anything.
+
+## What we deployed
+
+A two-phase rollout over 8 weeks.
+
+**Phase 1 (weeks 1–3): Data synchronisation**
+We configured Tally data sync between the three branches and HQ — hourly during business hours, with conflict-resolution rules per voucher type. Branch vouchers now flow to HQ within an hour; HQ changes (mostly master-data updates) flow back to branches.
+
+**Phase 2 (weeks 4–5): Reconciliation Booster + voucher approval flow**
+The Reconciliation Booster was installed on all three branches. Weekly Monday email digest now covers branch-vs-HQ reconciliation, bank reco, and GSTR-2A match — exceptions flagged for immediate attention.
+
+We also tightened the voucher-approval flow: credit notes and discount ceilings now route through the branch manager's phone (via our **Transaction Approvals** mobile app) with a 4-hour SLA. This eliminated the "why was this credit issued without my knowledge" pattern that was a frequent cause of month-end adjustments.
+
+**Phase 3 (weeks 6–8): Commission automation + training**
+Commission calculations were rebuilt as a Tally TDL that runs nightly; output goes directly to a preconfigured Excel workbook that managers approve from their phones. Commission payout vouchers are posted back to Tally with a single click after approval.
+
+Team training ran across all three locations in weeks 6–7; we stayed on-site for the first month-end after go-live as belt-and-braces.
+
+## The outcome
+
+After three month-end cycles with the new setup:
+
+- **Month-end close time**: down from 6 days to 2 days (-67%)
+- **Branch-vs-HQ discrepancies**: 90% caught within 48 hours (vs. month-end)
+- **Commission payout cycle**: 3 days → same-day
+- **Finance team overtime at month-end**: effectively zero
+
+The accounts head's comment: *"Last month-end, I left on time Friday. That has not happened in seven years."*
+
+## Stack deployed
+
+- TallyPrime Gold (existing)
+- Tally Data Synchronisation
+- Reconciliation Booster
+- Transaction Approvals mobile app
+- Custom commission-calculation TDL
+
+## What's next
+
+Konkan is piloting the **Business Dashboard** mobile app with their CEO and CFO (live data on their phones). If that lands well, we'll roll it out to all senior managers in Q3.
+
+---
+
+*Considering a similar engagement? [Scope a project with Finquanta](#enquiry).*
