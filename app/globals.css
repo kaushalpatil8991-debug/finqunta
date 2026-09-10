@@ -1,0 +1,143 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* Tabular figures for aligned numerals.
+ *
+ * MUST be `@utility`, not a plain class in `@layer utilities`. Tailwind v4 can
+ * only compose variants onto utilities it registers itself, so the `@layer`
+ * form silently produced NO RULE for any variant use — e.g.
+ * `[&>dd]:tabular-nums-strict` in components/page/case-study-card.tsx emitted
+ * nothing at all, with no build error. Bare `tabular-nums-strict` usages are
+ * unaffected by this change. */
+@utility tabular-nums-strict {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  html {
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Clear the sticky header when jumping to in-page anchors (#clients,
+       #testimonials, #cloud, …). Only the header is sticky (the utility bar
+       scrolls away); by the time a jump lands it has condensed to ~60px, so
+       80px clears it with a little breathing room without a big dead gap. */
+    scroll-padding-top: 80px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-primary-100);
+    color: var(--color-ink);
+  }
+
+  /* Tame heading defaults so Tailwind utilities fully control type */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  /* Named hero gradients (HeroSlide.gradient enum — spec §4.3) */
+  .gradient-plum { background: linear-gradient(135deg, #eee0f5 0%, #c7b8f5 100%); }
+  .gradient-mist { background: linear-gradient(135deg, #f3f5fc 0%, #dce1f5 100%); }
+  .gradient-sand { background: linear-gradient(135deg, #fbf7f0 0%, #f5e4c7 100%); }
+  .gradient-violet { background: linear-gradient(135deg, #f7effa 0%, #b99ad6 100%); }
+  .gradient-cream-gold { background: linear-gradient(135deg, #fbf7f0 0%, #e8c89b 100%); }
+
+  /* Z-index scale (spec §2.4) */
+  .z-base { z-index: 0; }
+  .z-sticky { z-index: 30; }
+  .z-fab { z-index: 40; }
+  .z-overlay { z-index: 50; }
+  .z-modal { z-index: 60; }
+  .z-toast { z-index: 70; }
+
+  /* Section rhythm — py-section/py-section-mob already provided by spacing tokens,
+     but this named alias makes intent explicit at call sites. */
+  .py-section { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+  .py-section-mob { padding-top: var(--spacing-section-mob); padding-bottom: var(--spacing-section-mob); }
+
+  /* Respect reduced-motion: collapse any transform/opacity transitions. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ——————————————————— Animation primitives ———————————————————
+   * Minimal subset of tailwindcss-animate utilities, implemented as plain
+   * keyframes so we don't pull the plugin. Used by Radix-based primitives.
+   */
+  @keyframes fq-fade-in   { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes fq-fade-out  { from { opacity: 1 } to { opacity: 0 } }
+  @keyframes fq-zoom-in   { from { opacity: 0; transform: scale(0.96) } to { opacity: 1; transform: scale(1) } }
+  @keyframes fq-zoom-out  { from { opacity: 1; transform: scale(1) } to { opacity: 0; transform: scale(0.96) } }
+  @keyframes fq-slide-in-right  { from { transform: translateX(100%) } to { transform: translateX(0) } }
+  @keyframes fq-slide-out-right { from { transform: translateX(0) } to { transform: translateX(100%) } }
+  @keyframes fq-slide-in-bottom  { from { transform: translateY(100%) } to { transform: translateY(0) } }
+  @keyframes fq-slide-out-bottom { from { transform: translateY(0) } to { transform: translateY(100%) } }
+  @keyframes fq-slide-in-left   { from { transform: translateX(-12px); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
+  @keyframes fq-slide-out-left  { from { transform: translateX(0); opacity: 1 } to { transform: translateX(-12px); opacity: 0 } }
+  @keyframes fq-accordion-down { from { height: 0 } to { height: var(--radix-accordion-content-height) } }
+  @keyframes fq-accordion-up   { from { height: var(--radix-accordion-content-height) } to { height: 0 } }
+
+  /* ——————————————————— Header / nav motion (design: "Finquanta Header Fix") ———
+   * Staggered mega-panel column reveal + a slow looping sheen on the primary CTA.
+   * Both are auto-disabled by the prefers-reduced-motion block above.
+   */
+  @keyframes fq-col-in { from { opacity: 0; transform: translateY(9px) } to { opacity: 1; transform: none } }
+  @keyframes fq-sheen  { 0% { transform: translateX(-160%) skewX(-18deg) } 60%, 100% { transform: translateX(320%) skewX(-18deg) } }
+
+  /* Sweeping highlight for the primary "Talk to Expert" CTA. Apply to a button
+     that already has rounded corners — overflow:hidden clips the sweep. */
+  .fq-sheen { position: relative; overflow: hidden; }
+  .fq-sheen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.4), transparent);
+    animation: fq-sheen 5s var(--ease-out) infinite;
+    pointer-events: none;
+  }
+
+  .animate-in  { animation-duration: var(--motion-base); animation-timing-function: var(--ease-out); animation-fill-mode: both; }
+  .animate-out { animation-duration: var(--motion-base); animation-timing-function: var(--ease-out); animation-fill-mode: both; }
+
+  .fade-in-0  { animation-name: fq-fade-in; }
+  .fade-out-0 { animation-name: fq-fade-out; }
+  .zoom-in-95  { animation-name: fq-zoom-in; }
+  .zoom-out-95 { animation-name: fq-zoom-out; }
+  .slide-in-from-right  { animation-name: fq-slide-in-right; }
+  .slide-out-to-right   { animation-name: fq-slide-out-right; }
+  .slide-in-from-bottom { animation-name: fq-slide-in-bottom; }
+  .slide-out-to-bottom  { animation-name: fq-slide-out-bottom; }
+  .slide-in-from-left-4  { animation-name: fq-slide-in-left; }
+  .slide-out-to-left-4   { animation-name: fq-slide-out-left; }
+  .slide-in-from-right-4 { animation-name: fq-slide-in-right; }
+  .slide-out-to-right-4  { animation-name: fq-slide-out-right; }
+
+  .animate-accordion-down { animation: fq-accordion-down var(--motion-base) var(--ease-out); }
+  .animate-accordion-up   { animation: fq-accordion-up   var(--motion-base) var(--ease-out); }
+}
