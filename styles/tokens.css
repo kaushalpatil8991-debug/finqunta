@@ -1,0 +1,194 @@
+/*
+ * Finquanta design tokens — Ivory Pearl palette, Manrope + Lora, pastel motion.
+ * Tokens declared in @theme become Tailwind utility classes automatically.
+ * See docs/superpowers/specs/2026-04-20-finquanta-marketing-site-sp1-design.md §2
+ * and FQ/design-to-section-map.md §2 (the reconciled token set) — the latter wins
+ * where the two disagree.
+ *
+ * PLACEMENT RULE: @theme is for variables that should mint utility classes.
+ * Values that are shorthands or gradients (--hairline, --scrim, --shot-surface)
+ * live in the :root block at the bottom of this file — Tailwind cannot build a
+ * utility out of them, and @theme is documented as the wrong home for variables
+ * that have no corresponding utility.
+ */
+
+@theme {
+  /* ——————————————————— Colors ——————————————————— */
+  --color-cream: #fbf7f0;
+  --color-cream-100: #f6f0e4;
+  --color-cream-200: #ede3d5;
+
+  --color-ink: #2e1b45;
+  --color-ink-700: #4a2c6b;
+  --color-ink-500: #6e5485;
+  /* Measured contrasts on --color-ink #2E1B45, so the rule below is checkable:
+   *   ink-500  #6e5485 →  2.41:1  FAILS AA. This was the footer bug
+   *                                (FQ/design-to-section-map.md §3.0).
+   *   ink-300  #a38ebc →  5.26:1  passes AA for body text.
+   *   cream-200 #ede3d5 → 12.18:1 the default text colour on ink.
+   *
+   * CORRECTION: an earlier revision of this comment attributed 2.41:1 to
+   * ink-300 and called it "the site's worst contrast bug". That conflated it
+   * with ink-500 — ink-300 passes. The claim was copied into
+   * components/sections/newsletter.tsx as well; treat this block as the
+   * authority. ink-500 and plum remain forbidden as text on ink. */
+  --color-ink-300: #a38ebc;
+  /* Muted secondary text on ink. 7.1:1 on --color-ink — passes AA for body.
+   * Use ONLY where cream-200 would flatten the hierarchy (CTA-band sub-copy,
+   * footer descriptors). cream-200 stays the default text colour on ink. */
+  --color-on-ink-muted: #bba9cc;
+
+  --color-primary: #7a4fb0;
+  --color-primary-600: #6a3f9f;
+  --color-primary-100: #eee0f5;
+  --color-primary-50: #f7effa;
+
+  --color-accent-violet: #b99ad6;
+  --color-accent-sand: #e8c89b;
+  --color-accent-sand-100: #f5e4c7;
+  /* Text colour for copy sitting on --color-accent-sand-100 (tag pills). 9.0:1. */
+  --color-sand-ink: #8a5a16;
+  /* Divider inside a two-part sand pill — sand-ink at 28%. */
+  --color-sand-hairline: rgb(138 90 22 / 0.28);
+
+  --color-success: #3d8b5c;
+  --color-info: #3b6fb8;
+  /* CORRECTED. Was #c26a2e, which measures 3.43:1 on --color-cream-100 (the
+   * band) and FAILS WCAG AA. #9a4f1e measures 5.32:1 on the same band and
+   * passes. Form errors and placeholder flags only, never decorative.
+   * (FQ/design-to-section-map.md §2, STATUS block.) */
+  --color-warning: #9a4f1e;
+  /* Warning at 12% — the placeholder-flag fill. */
+  --color-warning-tint: rgb(154 79 30 / 0.12);
+
+  --color-overlay: rgb(46 27 69 / 0.45);
+
+  /* ——————————————————— Hairlines ———————————————————
+   * The corpus's card edges and TOC rules disappear because cream-200 on cream
+   * is ~1.2:1. These are the only sanctioned line colours. Colour form here
+   * (mints border and divide utilities); the "1px solid" shorthand form lives
+   * in the :root block below as --hairline / --hairline-on-ink. */
+  --color-hairline: rgb(46 27 69 / 0.10);
+  --color-hairline-strong: rgb(46 27 69 / 0.18);
+  --color-hairline-on-ink: rgb(237 227 213 / 0.15);
+
+  /* Dashed edge of a photography placeholder (see --shot-surface below). */
+  --color-shot-line: rgb(46 27 69 / 0.22);
+
+  /* ——————————————————— Typography ——————————————————— */
+  /* Fonts bound to next/font CSS variables set in app/layout.tsx. */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  /* Lora ROMAN — headings, wordmarks, human sentences (S19 type-voice law).
+   * Never inside a control, never below 16px. */
+  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
+  /* Same family. Kept as a separate token because existing routes style with
+   * the `font-serif-italic` utility and must keep working unchanged. */
+  --font-serif-italic: var(--font-lora), "Times New Roman", serif;
+  /* Marathi / Hindi testimonial copy. Manrope has zero Devanagari coverage, so
+   * without this the quotes fall back to a system font. */
+  --font-devanagari: var(--font-noto-devanagari), var(--font-manrope), sans-serif;
+
+  /* Custom type scale (spec §2.3) */
+  --text-display: 3.5rem;
+  --text-display--line-height: 1.05;
+  --text-display-mob: 2.25rem;
+  --text-display-mob--line-height: 1.1;
+
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 1.1;
+  --text-h1-mob: 1.875rem;
+  --text-h1-mob--line-height: 1.15;
+
+  --text-h2: 1.875rem;
+  --text-h2--line-height: 1.15;
+  --text-h2-mob: 1.5rem;
+  --text-h2-mob--line-height: 1.2;
+
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.25;
+  --text-h3-mob: 1.25rem;
+  --text-h3-mob--line-height: 1.3;
+
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.3;
+  --text-h4-mob: 1rem;
+  --text-h4-mob--line-height: 1.35;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.55;
+  --text-body: 1rem;
+  --text-body--line-height: 1.55;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.5;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1;
+
+  --text-stat: 3.5rem;
+  --text-stat--line-height: 1;
+  --text-stat-mob: 2.5rem;
+  --text-stat-mob--line-height: 1;
+
+  /* ——————————————————— Radii ———————————————————
+   * S24 law: rectangles are buttons, pills are tags. One radius per job.
+   * --radius-sm (6px) is RETIRED as a control radius — the corpus has no 6px
+   * control step. It is kept only so existing `rounded-sm` call sites keep
+   * compiling; new work uses --radius-md for buttons, --radius-pill for tags. */
+  --radius-sm: 6px;
+  --radius-md: 10px;    /* buttons — the ONLY control radius */
+  --radius-lg: 16px;    /* cards, panels, banners */
+  --radius-xl: 24px;    /* full bands, large surfaces */
+  --radius-pill: 999px; /* tags, chips, nav containers, status. NEVER a submit control. */
+  --radius-sheet: 28px; /* OVERLAY PLANE ONLY — modals, mobile sheet */
+
+  /* ——————————————————— Shadows ——————————————————— */
+  --shadow-card: 0 2px 8px rgb(46 27 69 / 0.05);
+  --shadow-card-hover: 0 8px 20px rgb(46 27 69 / 0.08);
+  --shadow-modal: 0 20px 50px rgb(46 27 69 / 0.18);
+  --shadow-fab: 0 6px 18px rgb(122 79 176 / 0.3);
+  --shadow-sticky: 0 1px 0 rgb(46 27 69 / 0.06);
+  --shadow-float: 0 12px 40px rgb(46 27 69 / 0.14);
+
+  /* ——————————————————— Spacing additions ——————————————————— */
+  --spacing-section: 96px;
+  --spacing-section-mob: 56px;
+  /* Extra-compact section rhythm for stacked stripes on mobile. */
+  --spacing-section-xs: 40px;
+
+  --spacing-gutter: 20px;
+  --spacing-gutter-sm: 24px;
+  --spacing-gutter-md: 32px;
+  --spacing-gutter-lg: 48px;
+
+  /* ——————————————————— Motion ——————————————————— */
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --motion-slow: 400ms;
+  --motion-counter: 1800ms;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * Non-utility primitives. These are shorthands and gradients — Tailwind
+ * cannot mint a class from them, so they live on :root and are consumed via
+ * an arbitrary property, e.g. class="[border-top:var(--hairline)]".
+ * ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Border shorthands. Prefer the border-hairline colour utilities above for
+   * ordinary borders; these exist for one-off shorthand assignments. */
+  --hairline: 1px solid rgb(46 27 69 / 0.10);
+  --hairline-strong: 1px solid rgb(46 27 69 / 0.18);
+  --hairline-on-ink: 1px solid rgb(237 227 213 / 0.15);
+
+  /* Bottom-anchored legibility scrim for text laid over imagery. */
+  --scrim: linear-gradient(180deg, transparent, rgb(46 27 69 / 0.55));
+
+  /* Hatched fill for the photography placeholder
+   * (components/ui/shot-placeholder.tsx). */
+  --shot-surface:
+    repeating-linear-gradient(-45deg, transparent 0 9px, rgb(46 27 69 / 0.05) 9px 18px),
+    #efe7da;
+}

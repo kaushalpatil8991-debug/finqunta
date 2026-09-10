@@ -1,0 +1,1555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finquanta — Tally, implemented properly</title>
+<meta name="description" content="Static prototype of the Finquanta homepage, built to the FQ plate map.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..600;1,400..600&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   FINQUANTA PROTOTYPE — homepage
+   Tokens are §2 of FQ/design-to-section-map.md, verbatim.
+   Laws applied: S16 numbers · S11 fact rows · S19 type voice · S24 radius
+   · S10 compound CTA · S38 section header · S35 inverted active
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── SURFACES — four, and only four ─────────────────────────────────── */
+:root{
+  --ground:#FBF7F0;
+  --surface:#FFFFFF;
+  --band:#F6F0E4;
+  --ink:#2E1B45;
+
+  --ink-900:#2E1B45;
+  --ink-700:#4A2C6B;
+  --ink-500:#6E5485;
+  --cream-200:#EDE3D5;
+  --on-ink:#EDE3D5;
+  --on-ink-2:#BBA9CC;
+
+  --plum:#7A4FB0;
+  --plum-100:#EEE0F5;
+  --sand:#E8C89B;
+  --sand-100:#F5E4C7;
+  --sand-ink:#8A5A16;
+  --violet:#B99AD6;
+  --success:#3D8B5C;
+  --warning:#9A4F1E;
+
+  --hairline:rgb(46 27 69 / .10);
+  --hairline-2:rgb(46 27 69 / .18);
+  --hairline-dark:rgb(237 227 213 / .15);
+
+  --r-btn:10px; --r-card:16px; --r-surf:24px; --r-pill:999px; --r-sheet:28px;
+
+  --t-display:clamp(2.25rem,5.2vw,3.5rem);
+  --t-h1:clamp(1.9rem,3.6vw,2.5rem);
+  --t-h2:clamp(1.4rem,2.4vw,1.75rem);
+  --t-h3:1.25rem;
+
+  --gutter:20px;
+  --pad-page:48px;
+  --container:1280px;
+  --band-y:96px;
+
+  --shadow-card:0 2px 8px rgb(46 27 69 / .05);
+  --shadow-float:0 12px 40px rgb(46 27 69 / .14);
+
+  --shot-line:rgb(46 27 69 / .22);
+  --shot-fill:#EFE7DA;
+  --shot-hatch:rgb(46 27 69 / .05);
+
+  --cta-bg:#7A4FB0; --cta-fg:#FFFFFF; --cta-bg-h:#6A3F9F;
+  --cta-i:rgb(255 255 255 / .22);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#151016; --surface:#1E1822; --band:#1A141C; --ink:#0C080E;
+  --ink-900:#F3ECF4; --ink-700:#D6CADA; --ink-500:#A294AB;
+  --cream-200:#EDE3D5; --on-ink:#EDE3D5; --on-ink-2:#A99BB4;
+  --plum:#C9A9E4; --plum-100:#2E2338; --sand:#E8C89B; --sand-100:#33291B;
+  --sand-ink:#E8C89B; --violet:#B99AD6;
+  --hairline:rgb(237 227 213 / .12); --hairline-2:rgb(237 227 213 / .22);
+  --shadow-card:0 2px 8px rgb(0 0 0 / .40);
+  --shadow-float:0 12px 40px rgb(0 0 0 / .55);
+  --shot-line:rgb(237 227 213 / .24); --shot-fill:#241D28; --shot-hatch:rgb(237 227 213 / .05);
+  --cta-bg:#C9A9E4; --cta-fg:#1B1024; --cta-bg-h:#D8BEEE;
+  --cta-i:rgb(27 16 36 / .18);
+}}
+:root[data-theme="dark"]{
+  --ground:#151016; --surface:#1E1822; --band:#1A141C; --ink:#0C080E;
+  --ink-900:#F3ECF4; --ink-700:#D6CADA; --ink-500:#A294AB;
+  --cream-200:#EDE3D5; --on-ink:#EDE3D5; --on-ink-2:#A99BB4;
+  --plum:#C9A9E4; --plum-100:#2E2338; --sand:#E8C89B; --sand-100:#33291B;
+  --sand-ink:#E8C89B; --violet:#B99AD6;
+  --hairline:rgb(237 227 213 / .12); --hairline-2:rgb(237 227 213 / .22);
+  --shadow-card:0 2px 8px rgb(0 0 0 / .40);
+  --shadow-float:0 12px 40px rgb(0 0 0 / .55);
+  --shot-line:rgb(237 227 213 / .24); --shot-fill:#241D28; --shot-hatch:rgb(237 227 213 / .05);
+  --cta-bg:#C9A9E4; --cta-fg:#1B1024; --cta-bg-h:#D8BEEE;
+  --cta-i:rgb(27 16 36 / .18);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+body{
+  margin:0; background:var(--ground); color:var(--ink-700);
+  font-family:"Manrope",ui-sans-serif,system-ui,sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+:lang(hi),:lang(mr){font-family:"Noto Sans Devanagari","Manrope",sans-serif}
+
+/* S19 — Lora for human sentences, Manrope for every number and control. */
+h1,h2,h3,h4,.serif{
+  font-family:"Lora",Georgia,serif; color:var(--ink-900);
+  font-weight:600; text-wrap:balance; margin:0;
+}
+h1{font-size:var(--t-display);line-height:1.05;letter-spacing:-.015em}
+h2{font-size:var(--t-h1);line-height:1.1}
+h3{font-size:var(--t-h2);line-height:1.15}
+h4{font-size:var(--t-h3);line-height:1.3}
+p{margin:0 0 1em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px;border-radius:4px}
+.num{font-variant-numeric:tabular-nums}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--pad-page)}
+/* the sticky header is 68px — anchor targets must clear it */
+section[id],main[id]{scroll-margin-top:84px}
+@media(max-width:900px){:root{--pad-page:24px;--band-y:56px}}
+@media(max-width:560px){:root{--pad-page:16px}}
+
+/* ─── eyebrow / micro ────────────────────────────────────────────────── */
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-500);margin:0 0 12px;
+}
+
+/* ─── S38 section header: eyebrow left / lead centre / action right ──── */
+.shead{
+  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;
+  margin-bottom:34px;
+}
+.shead .lead{max-width:56ch}
+.shead p{margin:10px 0 0;color:var(--ink-500);font-size:16px}
+@media(max-width:760px){.shead{grid-template-columns:1fr}}
+
+/* ─── S10 compound CTA, reconciled with the S24 radius law ────────────
+   The container is a 10px rectangle (S24: rectangles are buttons).
+   The circular icon button is set into its end cap (S10).             */
+/* Colours ride on tokens, never on competing selectors — a .panel .cta
+   rule loses a specificity race against :root:not(...) .cta and the label
+   silently turns white on white. */
+.cta{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:8px 8px 8px 20px;border-radius:var(--r-btn);
+  background:var(--cta-bg);color:var(--cta-fg);border:0;cursor:pointer;
+  font-size:15px;font-weight:700;line-height:1.2;
+  transition:background .16s,transform .16s;
+}
+.cta:hover{background:var(--cta-bg-h);transform:translateY(-1px)}
+.cta i{
+  width:34px;height:34px;flex:none;border-radius:var(--r-pill);
+  background:var(--cta-i);display:grid;place-items:center;
+  font-style:normal;font-size:15px;line-height:1;
+}
+.cta.on-ink{--cta-bg:var(--sand);--cta-fg:#2E1B45;--cta-bg-h:#F0D6AE;
+  --cta-i:rgb(46 27 69 / .16)}
+
+/* secondary is always a text link with an icon — never a ghost outline */
+.tlink{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:600;color:var(--ink-900);
+  border-bottom:1px solid var(--hairline-2);padding-bottom:2px;
+  transition:border-color .16s,color .16s;
+}
+.tlink:hover{border-color:var(--plum);color:var(--plum)}
+.tlink.on-ink{color:var(--cream-200);border-color:var(--hairline-dark)}
+.tlink.on-ink:hover{color:var(--sand);border-color:var(--sand)}
+
+/* ─── pills are tags (S24) ───────────────────────────────────────────── */
+.tag{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:var(--r-pill);
+  background:var(--sand-100);color:var(--sand-ink);white-space:nowrap;
+}
+/* S26 two-part composite pill: two unlike facts, split by a hairline */
+.tag2{
+  display:inline-flex;align-items:stretch;border-radius:var(--r-pill);
+  background:var(--sand-100);color:var(--sand-ink);overflow:hidden;
+  font-size:11.5px;font-weight:700;letter-spacing:.05em;
+}
+.tag2 span{padding:5px 12px;display:flex;align-items:center;white-space:nowrap}
+.tag2 span+span{border-left:1px solid rgb(138 90 22 / .28)}
+:root[data-theme="dark"] .tag2 span+span{border-left-color:rgb(232 200 155 / .28)}
+
+/* placeholder-content flag — the guide is emphatic that fabricated
+   records must never read as real proof */
+.ph{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;
+  font-family:"Manrope",sans-serif;
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 7px;border-radius:var(--r-pill);
+  background:rgb(154 79 30 / .12);color:var(--warning);white-space:nowrap;
+}
+:root[data-theme="dark"] .ph{background:rgb(232 200 155 / .14);color:var(--sand)}
+.ph::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* ─── photography placeholder — doubles as the shot list ─────────────── */
+.shot{
+  position:relative;aspect-ratio:var(--ar,16/10);border-radius:var(--r-card);
+  background:
+    repeating-linear-gradient(-45deg,transparent 0 9px,var(--shot-hatch) 9px 18px),
+    var(--shot-fill);
+  border:1px dashed var(--shot-line);
+  display:flex;flex-direction:column;justify-content:flex-end;gap:3px;
+  padding:16px;overflow:hidden;
+}
+.shot .sid{
+  position:absolute;top:12px;left:14px;
+  font-size:10px;font-weight:800;letter-spacing:.11em;color:var(--ink-500);
+}
+.shot .sar{
+  position:absolute;top:12px;right:14px;
+  font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--ink-500);
+  font-variant-numeric:tabular-nums;
+}
+.shot .st{font-size:15px;font-weight:700;color:var(--ink-900);line-height:1.3}
+.shot .sm{font-size:11.5px;color:var(--ink-500);line-height:1.4}
+
+/* ═══ UTILITY BAR — S26 ══════════════════════════════════════════════ */
+.util{border-bottom:1px solid var(--hairline);background:var(--ground);font-size:13px}
+.util .wrap{display:flex;align-items:center;gap:20px;height:42px}
+.util .sp{margin-left:auto;display:flex;gap:22px;align-items:center}
+.util a{color:var(--ink-500);transition:color .15s}
+.util a:hover{color:var(--plum)}
+@media(max-width:900px){.util{display:none}}
+
+/* ═══ HEADER — S35 ═══════════════════════════════════════════════════ */
+.hdr{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--ground) 93%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hairline);
+}
+.hdr .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Lora",serif;
+  font-size:21px;font-weight:600;color:var(--ink-900);letter-spacing:-.01em}
+.logo .mk{
+  width:28px;height:28px;border-radius:8px;background:var(--plum);color:#fff;
+  display:grid;place-items:center;font-family:"Manrope",sans-serif;
+  font-size:14px;font-weight:800;flex:none;
+}
+:root[data-theme="dark"] .logo .mk{color:#1B1024}
+
+/* nav is a pill CONTAINER; the active item inverts to solid — no tint */
+.nav{
+  display:flex;align-items:center;gap:2px;margin-left:14px;
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-pill);padding:4px;
+}
+.nav button,.nav a{
+  border:0;background:none;cursor:pointer;border-radius:var(--r-pill);
+  padding:7px 15px;font-size:14px;font-weight:600;color:var(--ink-700);
+  display:inline-flex;align-items:center;gap:6px;transition:background .15s,color .15s;
+}
+.nav button:hover,.nav a:hover{color:var(--ink-900)}
+.nav [aria-current="page"],.nav [aria-expanded="true"]{
+  background:var(--ink);color:var(--on-ink);
+}
+.nav .car{font-size:9px;opacity:.7;transition:transform .18s}
+.nav [aria-expanded="true"] .car{transform:rotate(180deg)}
+.hdr .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.persona{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 15px;
+  border-radius:var(--r-pill);border:1px solid var(--hairline-2);
+  background:var(--surface);font-size:13.5px;font-weight:600;color:var(--ink-700);
+  cursor:pointer;transition:border-color .15s;
+}
+.persona:hover{border-color:var(--plum);color:var(--plum)}
+.persona .dot{width:7px;height:7px;border-radius:50%;background:var(--plum);flex:none}
+@media(max-width:1180px){.nav,.persona{display:none}}
+.burger{
+  display:none;width:42px;height:42px;border-radius:var(--r-pill);
+  border:1px solid var(--hairline-2);background:var(--surface);
+  cursor:pointer;place-items:center;margin-left:auto;
+}
+.burger span{display:block;width:17px;height:1.5px;background:var(--ink-900);
+  position:relative}
+.burger span::before,.burger span::after{
+  content:"";position:absolute;left:0;width:17px;height:1.5px;background:var(--ink-900)}
+.burger span::before{top:-5px}.burger span::after{top:5px}
+@media(max-width:1180px){.burger{display:grid}.hdr .right{display:none}}
+
+/* ═══ MEGA-MENU — S18: 4 link columns + 1 featured cell ══════════════ */
+.mega{
+  position:absolute;left:0;right:0;top:100%;z-index:59;
+  background:var(--surface);border:1px solid var(--hairline-2);
+  border-radius:0 0 var(--r-surf) var(--r-surf);box-shadow:var(--shadow-float);
+  padding:30px var(--pad-page) 34px;
+  display:none;
+}
+.mega.on{display:block}
+.mega-in{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr) 1.15fr;gap:32px;
+}
+@media(max-width:1100px){.mega-in{grid-template-columns:repeat(2,1fr)}}
+.mcol h5{
+  margin:0 0 14px;font-family:"Manrope",sans-serif;
+}
+.mchip{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;padding:4px 11px;border-radius:var(--r-pill);
+  border:1px solid var(--hairline-2);color:var(--ink-500);
+}
+.mcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.mcol li a{
+  display:block;padding:7px 0;font-size:14px;color:var(--ink-700);
+  border-bottom:1px solid var(--hairline);transition:color .14s,padding-left .14s;
+}
+.mcol li a:hover{color:var(--plum);padding-left:5px}
+.mcol li a .d{display:block;font-size:11.5px;color:var(--ink-500);margin-top:2px}
+/* the featured cell — new home for Buy, Download and the cloud promo */
+.mfeat{
+  background:var(--ink);border-radius:var(--r-card);padding:22px;
+  display:flex;flex-direction:column;gap:14px;position:relative;
+}
+.mfeat h5{font-family:"Lora",serif;font-size:19px;color:var(--on-ink);margin:0}
+.mfeat p{font-size:13px;color:var(--on-ink-2);margin:0;line-height:1.5}
+.mfeat .row{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto}
+.mbtn{
+  padding:9px 15px;border-radius:var(--r-btn);font-size:13.5px;font-weight:700;
+  background:var(--sand);color:var(--ink);transition:background .15s;
+}
+.mbtn:hover{background:#F0D6AE}
+.mbtn.alt{background:transparent;color:var(--cream-200);
+  border:1px solid var(--hairline-dark)}
+.mbtn.alt:hover{background:rgb(237 227 213 / .10)}
+
+/* ═══ MOBILE SHEET — S35 rows + S13 chips + S01 pill ════════════════ */
+.scrim{position:fixed;inset:0;background:rgb(46 27 69 / .45);z-index:79;
+  opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);z-index:80;
+  background:var(--surface);transform:translateX(101%);
+  transition:transform .26s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;
+  border-top-left-radius:var(--r-sheet);border-bottom-left-radius:var(--r-sheet);
+  overflow:hidden;
+}
+.sheet.on{transform:none}
+.sheet-hd{padding:18px 20px;border-bottom:1px solid var(--hairline);
+  display:flex;align-items:center;gap:12px}
+.sheet-hd .x{margin-left:auto;width:38px;height:38px;border-radius:var(--r-pill);
+  border:1px solid var(--hairline-2);background:none;cursor:pointer;
+  display:grid;place-items:center;font-size:19px;line-height:1}
+.sheet-body{overflow-y:auto;padding:16px 20px 24px;display:flex;
+  flex-direction:column;gap:16px;flex:1}
+.srch{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  border-radius:var(--r-pill);background:var(--band);
+  border:1px solid var(--hairline);color:var(--ink-500);font-size:14px;
+}
+.srch input{border:0;background:none;outline:none;flex:1;font:inherit;
+  color:var(--ink-900)}
+.chiprow{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;
+  scrollbar-width:none}
+.chiprow::-webkit-scrollbar{display:none}
+.chiprow button{
+  flex:none;padding:7px 14px;border-radius:var(--r-pill);
+  border:1px solid var(--hairline-2);background:var(--surface);
+  font-size:12.5px;font-weight:600;color:var(--ink-700);cursor:pointer;
+  transition:background .14s,color .14s;
+}
+.chiprow button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);
+  border-color:transparent}
+.srow{
+  display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 4px;
+  border-bottom:1px solid var(--hairline);font-size:15px;font-weight:600;
+  color:var(--ink-900);
+}
+.srow .q{margin-left:auto;font-size:12px;font-weight:500;color:var(--ink-500)}
+.srow:hover{color:var(--plum)}
+.sheet-call{
+  width:46px;height:46px;flex:none;border-radius:var(--r-pill);
+  border:1px solid var(--hairline-2);display:grid;place-items:center;
+  font-size:18px;color:var(--ink-900);
+}
+.sheet-call:hover{border-color:var(--plum);color:var(--plum)}
+
+/* ═══ HERO — S27 flat ground · S16 proof · S31 numbered rail ═════════ */
+.hero{background:var(--band);border-bottom:1px solid var(--hairline);
+  position:relative;overflow:hidden}
+.hero .wrap{padding-top:64px;padding-bottom:0}
+.slide{display:none;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.slide.on{display:grid}
+@media(max-width:980px){.slide.on{grid-template-columns:1fr;gap:32px}}
+.hero h1{margin:14px 0 18px;max-width:15ch}
+.hero .sub{font-size:clamp(1rem,1.5vw,1.125rem);color:var(--ink-700);
+  max-width:48ch;margin:0 0 28px}
+.hero .acts{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.hero-media{position:relative}
+/* numbered rail — 01 / 0n with a continuous track (S31) */
+.rail{
+  position:absolute;right:-30px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;color:var(--ink-500);
+  font-variant-numeric:tabular-nums;
+}
+.rail .track{width:1px;height:74px;background:var(--hairline-2);position:relative}
+.rail .track i{position:absolute;left:-1px;width:3px;background:var(--plum);
+  border-radius:2px;transition:top .3s,height .3s}
+@media(max-width:1240px){.rail{display:none}}
+/* the trust cluster — first proof point, above the fold */
+.trustbar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:0;
+  margin-top:52px;border-top:1px solid var(--hairline);
+}
+.trustbar .t{
+  padding:20px 32px 22px;border-right:1px solid var(--hairline);
+  display:flex;flex-direction:column;gap:5px;
+}
+.trustbar .t:first-child{padding-left:0}
+.trustbar .t:last-child{border-right:0}
+.trustbar .v{font-size:30px;font-weight:800;line-height:1;color:var(--ink-900);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.trustbar .l{font-size:11px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-500)}
+.trustbar .ctl{margin-left:auto;display:flex;align-items:center;gap:8px;
+  padding-right:0}
+.hctl{
+  width:38px;height:38px;border-radius:var(--r-pill);cursor:pointer;
+  border:1px solid var(--hairline-2);background:var(--surface);
+  display:grid;place-items:center;font-size:13px;color:var(--ink-700);
+  transition:border-color .15s,color .15s;
+}
+.hctl:hover{border-color:var(--plum);color:var(--plum)}
+@media(max-width:700px){
+  .trustbar .t{padding:16px 20px 18px}
+  .trustbar .t:first-child{padding-left:0}
+  .trustbar .ctl{width:100%;justify-content:flex-end;padding:12px 0;
+    border-top:1px solid var(--hairline)}
+}
+
+/* ═══ CLIENTS — S04 marquee + S12 typographic tile ══════════════════ */
+.clients{padding:var(--band-y) 0;border-bottom:1px solid var(--hairline)}
+.cl-grid{display:grid;grid-template-columns:1fr 1.9fr;gap:44px;align-items:center}
+@media(max-width:900px){.cl-grid{grid-template-columns:1fr;gap:28px}}
+.cl-tile h3{margin-bottom:10px}
+.cl-tile p{color:var(--ink-500);font-size:15px;margin:0}
+.marquee{
+  overflow:hidden;position:relative;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.mtrack{display:flex;gap:14px;width:max-content;animation:mq 46s linear infinite}
+.marquee:hover .mtrack,.marquee:focus-within .mtrack{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .mtrack{animation:none}
+  .marquee{overflow-x:auto}
+}
+.lgo{
+  flex:none;display:flex;flex-direction:column;justify-content:center;gap:3px;
+  height:76px;padding:0 22px;border-radius:var(--r-card);
+  border:1px dashed var(--shot-line);background:var(--shot-fill);
+}
+.lgo b{font-family:"Lora",serif;font-size:15px;font-weight:600;
+  color:var(--ink-700);white-space:nowrap}
+.lgo s{text-decoration:none;font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-500)}
+
+/* ═══ TESTIMONIALS ══════════════════════════════════════════════════ */
+.tst{padding:var(--band-y) 0;background:var(--band);
+  border-bottom:1px solid var(--hairline)}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter)}
+@media(max-width:980px){.tgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.tgrid{grid-template-columns:1fr}}
+.tcard{
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-card);padding:24px;
+  display:flex;flex-direction:column;gap:16px;position:relative;
+}
+.tcard blockquote{margin:0;font-family:"Lora",serif;font-size:17px;
+  line-height:1.55;color:var(--ink-900)}
+.tcard .who{margin-top:auto;display:flex;flex-direction:column;gap:7px}
+.tcard .nm{font-size:14px;font-weight:700;color:var(--ink-900)}
+.tcard .rl{font-size:12.5px;color:var(--ink-500)}
+/* S18 — circular arrow in the same fixed corner on every card */
+.tcard .go{
+  position:absolute;top:20px;right:20px;width:32px;height:32px;
+  border-radius:var(--r-pill);border:1px solid var(--hairline-2);
+  display:grid;place-items:center;font-size:13px;color:var(--ink-500);
+}
+
+/* ═══ TRUST STATS — S16, exactly one accented cell ══════════════════ */
+.stats{padding:var(--band-y) 0;border-bottom:1px solid var(--hairline)}
+.sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gutter)}
+@media(max-width:980px){.sgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.sgrid{grid-template-columns:repeat(2,1fr)}}
+.scell{
+  padding:26px 22px;border:1px solid var(--hairline);border-radius:var(--r-card);
+  background:var(--surface);display:flex;flex-direction:column;gap:10px;
+}
+.scell.hot{background:var(--ink);border-color:transparent}
+.scell .v{font-size:42px;font-weight:800;line-height:.95;color:var(--ink-900);
+  font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+.scell.hot .v{color:var(--sand)}
+.scell .l{font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--ink-500);
+  line-height:1.35}
+.scell.hot .l{color:var(--on-ink-2)}
+
+/* ═══ AWARDS — S18 label chips ══════════════════════════════════════ */
+.awd{padding:var(--band-y) 0;background:var(--band);
+  border-bottom:1px solid var(--hairline)}
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter)}
+@media(max-width:900px){.agrid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.agrid{grid-template-columns:1fr}}
+.acard{
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-card);padding:22px;position:relative;
+  display:flex;flex-direction:column;gap:11px;
+}
+.acard .yr{font-size:11px;font-weight:700;letter-spacing:.08em;
+  color:var(--ink-500);font-variant-numeric:tabular-nums}
+.acard h4{font-size:17px}
+.acard p{font-size:13.5px;color:var(--ink-500);margin:0;line-height:1.5}
+.acard .iss{font-size:12px;color:var(--ink-500);
+  padding-top:11px;border-top:1px solid var(--hairline);margin-top:auto}
+
+/* ═══ VALUES — S36 iconless: bold label over a grey sub-line ════════ */
+.val{padding:var(--band-y) 0;border-bottom:1px solid var(--hairline)}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 44px}
+@media(max-width:880px){.vgrid{grid-template-columns:1fr 1fr;gap:0 32px}}
+@media(max-width:560px){.vgrid{grid-template-columns:1fr}}
+.vrow{padding:18px 0;border-top:1px solid var(--hairline)}
+.vrow h4{font-family:"Manrope",sans-serif;font-size:15px;font-weight:700;
+  color:var(--ink-900);margin-bottom:5px}
+.vrow p{margin:0;font-size:13.5px;color:var(--ink-500);line-height:1.5}
+
+/* ═══ OFFERINGS — S12 bento + S18 grammar, height reserved ══════════ */
+.off{padding:var(--band-y) 0;background:var(--band);
+  border-bottom:1px solid var(--hairline)}
+.tabs{
+  display:flex;gap:8px;overflow-x:auto;padding:5px;margin-bottom:26px;
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-pill);width:max-content;max-width:100%;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{
+  flex:none;padding:9px 18px;border-radius:var(--r-pill);border:0;
+  background:none;cursor:pointer;font-size:14px;font-weight:600;
+  color:var(--ink-700);transition:background .15s,color .15s;white-space:nowrap;
+}
+.tabs button:hover{color:var(--ink-900)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--on-ink)}
+/* reserved height — the live site collapses and jumps the scroll on tab change */
+.bento{min-height:452px}
+@media(max-width:980px){.bento{min-height:0}}
+.bgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
+@media(max-width:980px){.bgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.bgrid{grid-template-columns:1fr}}
+.bcard{
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-card);padding:22px;position:relative;
+  display:flex;flex-direction:column;gap:9px;min-height:210px;
+  transition:border-color .15s,box-shadow .15s,transform .15s;
+}
+.bcard:hover{border-color:var(--hairline-2);box-shadow:var(--shadow-card);
+  transform:translateY(-2px)}
+.bcard h4{font-size:16.5px;padding-right:38px}
+.bcard p{font-size:13.5px;color:var(--ink-500);margin:0;line-height:1.5}
+.bcard .go{
+  position:absolute;top:20px;right:20px;width:32px;height:32px;
+  border-radius:var(--r-pill);border:1px solid var(--hairline-2);
+  display:grid;place-items:center;font-size:13px;color:var(--ink-500);
+  transition:background .15s,color .15s,border-color .15s;
+}
+.bcard:hover .go{background:var(--plum);color:#fff;border-color:transparent}
+:root[data-theme="dark"] .bcard:hover .go{color:#1B1024}
+.bcard .lbl{margin-top:auto;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--plum)}
+/* one featured cell per tab where items >= 4 (S12 typographic tile) */
+.bcard.feat{background:var(--ink);border-color:transparent}
+.bcard.feat h4{color:var(--on-ink)}
+.bcard.feat p{color:var(--on-ink-2)}
+.bcard.feat .lbl{color:var(--sand)}
+.bcard.feat .go{border-color:var(--hairline-dark);color:var(--on-ink-2)}
+.bcard.feat:hover .go{background:var(--sand);color:var(--ink)}
+
+/* ═══ TALLY ON CLOUD — S11 fact rows + S34 enquiry panel ════════════ */
+.cloud{padding:var(--band-y) 0;border-bottom:1px solid var(--hairline)}
+.cgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:start}
+@media(max-width:980px){.cgrid{grid-template-columns:1fr;gap:32px}}
+/* S11 — hairline label/value rows. No boxes, no icons, no zebra. */
+.frow{padding:16px 0;border-top:1px solid var(--hairline);
+  display:grid;grid-template-columns:200px 1fr;gap:24px}
+@media(max-width:640px){.frow{grid-template-columns:1fr;gap:4px}}
+.frow dt{font-size:15px;font-weight:700;color:var(--ink-900)}
+.frow dd{margin:0;font-size:14.5px;color:var(--ink-500);line-height:1.55}
+.cdl{margin:0}
+/* S34 — the chromatic panel: the site's one inline enquiry surface */
+.panel{
+  background:var(--plum);border-radius:var(--r-surf);padding:30px;
+  display:flex;flex-direction:column;gap:16px;position:sticky;top:92px;
+}
+.panel h3{color:#fff;font-size:23px}
+:root[data-theme="dark"] .panel h3{color:#1B1024}
+.panel p{color:rgb(255 255 255 / .88);font-size:14.5px;margin:0;line-height:1.55}
+:root[data-theme="dark"] .panel p{color:rgb(27 16 36 / .82)}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{font-size:11.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:rgb(255 255 255 / .82)}
+:root[data-theme="dark"] .fld label{color:rgb(27 16 36 / .78)}
+.fld input{
+  padding:12px 14px;border-radius:var(--r-btn);border:1px solid rgb(255 255 255 / .30);
+  background:rgb(255 255 255 / .14);color:#fff;font:inherit;font-size:15px;outline:none;
+}
+.fld input::placeholder{color:rgb(255 255 255 / .58)}
+.fld input:focus{border-color:#fff;background:rgb(255 255 255 / .20)}
+:root[data-theme="dark"] .fld input{border-color:rgb(27 16 36 / .28);
+  background:rgb(27 16 36 / .12);color:#1B1024}
+:root[data-theme="dark"] .fld input::placeholder{color:rgb(27 16 36 / .52)}
+.panel .fine{font-size:12px;color:rgb(255 255 255 / .78);margin:0}
+:root[data-theme="dark"] .panel .fine{color:rgb(27 16 36 / .72)}
+.panel .cta{
+  --cta-bg:#FFFFFF; --cta-fg:#7A4FB0; --cta-bg-h:#EDE3D5;
+  --cta-i:rgb(122 79 176 / .16);
+  justify-content:space-between;
+}
+:root[data-theme="dark"] .panel .cta{--cta-bg:#1B1024;--cta-fg:#C9A9E4;
+  --cta-bg-h:#2A1B36;--cta-i:rgb(201 169 228 / .20)}
+
+/* ═══ CTA BAND — S38 header + S10 compound CTA ══════════════════════ */
+.ctab{background:var(--ink);padding:72px 0}
+.ctab .in{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+@media(max-width:860px){.ctab .in{grid-template-columns:1fr}}
+.ctab h2{color:var(--on-ink);max-width:20ch}
+.ctab .eyebrow{color:var(--sand)}
+.ctab p{color:var(--on-ink-2);margin:12px 0 0;max-width:52ch;font-size:16px}
+.ctab .acts{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+
+/* ═══ FOOTER — S05 wordmark band + S18 columns ══════════════════════
+   The 2.41:1 link contrast is fixed here: link text is cream-200 at
+   12.18:1 on ink, hovering to sand — never ink-500 on ink.          */
+.ftr{background:var(--ink);color:var(--on-ink-2);padding:0 0 40px}
+.wordmark{
+  padding:56px 0 44px;border-bottom:1px solid var(--hairline-dark);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:28px;
+  flex-wrap:wrap;
+}
+.wordmark .big{
+  font-family:"Lora",serif;font-size:clamp(3rem,11vw,8rem);line-height:.86;
+  color:var(--on-ink);letter-spacing:-.035em;margin:0;
+}
+.wordmark .sub{font-size:14px;color:var(--on-ink-2);max-width:34ch;margin:0 0 8px}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;padding:44px 0 36px}
+@media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+.fcol h5{margin:0 0 14px}
+.fchip{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;padding:4px 11px;border-radius:var(--r-pill);
+  border:1px solid var(--hairline-dark);color:var(--on-ink-2);
+}
+.fcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.fcol a{display:block;padding:5px 0;font-size:14px;color:var(--cream-200);
+  transition:color .14s}
+.fcol a:hover{color:var(--sand)}
+.fbot{padding-top:26px;border-top:1px solid var(--hairline-dark);
+  display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-size:13px}
+.fbot .addr{color:var(--on-ink-2);max-width:52ch;line-height:1.55}
+.fbot .rt{margin-left:auto;display:flex;gap:18px;align-items:center}
+.fbot a{color:var(--cream-200)}
+.fbot a:hover{color:var(--sand)}
+
+/* ═══ FLOATING ACTIONS — S15 plane + S10 CTA. Opaque, never glass. ══ */
+.fab{
+  position:fixed;right:24px;bottom:24px;z-index:70;
+  display:flex;align-items:center;gap:10px;
+}
+.fab .rnd{
+  width:50px;height:50px;border-radius:var(--r-pill);flex:none;cursor:pointer;
+  border:1px solid var(--hairline-2);background:var(--surface);
+  display:grid;place-items:center;font-size:19px;color:var(--ink-900);
+  box-shadow:var(--shadow-float);transition:transform .15s;
+}
+.fab .rnd:hover{transform:translateY(-2px)}
+.fab .cta{box-shadow:var(--shadow-float)}
+@media(max-width:600px){
+  .fab{right:16px;bottom:16px}
+  .fab .cta span{display:none}
+  .fab .cta{padding:8px}
+}
+/* stop the cluster permanently occluding the last band */
+body{padding-bottom:96px}
+
+/* ═══ MODAL — S15 sheet, notch on the OUTER edge only ═══════════════ */
+.modal{
+  position:fixed;z-index:100;left:50%;top:50%;transform:translate(-50%,-46%) scale(.98);
+  width:min(520px,calc(100% - 32px));max-height:86vh;overflow-y:auto;
+  background:var(--surface);border-radius:var(--r-sheet);
+  box-shadow:var(--shadow-float);padding:30px;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+}
+.modal.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.modal h3{margin-bottom:6px}
+.modal .sub{color:var(--ink-500);font-size:14.5px;margin:0 0 20px}
+.modal .x{
+  position:absolute;top:18px;right:18px;width:36px;height:36px;
+  border-radius:var(--r-pill);border:1px solid var(--hairline-2);
+  background:none;cursor:pointer;display:grid;place-items:center;font-size:18px;
+}
+.mform{display:flex;flex-direction:column;gap:14px}
+.mfld{display:flex;flex-direction:column;gap:6px}
+.mfld label{font-size:11.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-500)}
+.mfld input{padding:12px 14px;border-radius:var(--r-btn);
+  border:1px solid var(--hairline-2);background:var(--ground);
+  color:var(--ink-900);font:inherit;font-size:15px;outline:none}
+.mfld input:focus{border-color:var(--plum)}
+.mnote{font-size:12.5px;color:var(--ink-500);margin:0}
+
+/* prototype ribbon */
+.proto{
+  position:fixed;left:0;bottom:0;z-index:95;
+  background:var(--ink);color:var(--sand);
+  font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:7px 14px;border-top-right-radius:var(--r-btn);
+  display:flex;gap:12px;align-items:center;
+}
+.proto button{background:none;border:0;color:var(--cream-200);cursor:pointer;
+  font:inherit;text-decoration:underline;text-underline-offset:2px}
+</style>
+</head>
+<body>
+
+<!-- ═══ UTILITY BAR — S26 two-part composite pill ═══════════════════ -->
+<div class="util">
+  <div class="wrap">
+    <span class="tag2"><span>Tally 5-Star Partner</span><span>Since 2018</span></span>
+    <div class="sp">
+      <a href="tel:+919912037912">+91 99120 37912</a>
+      <a href="mailto:hello@finquanta.in">hello@finquanta.in</a>
+      <a href="#" data-modal="callback">Request a callback</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HEADER — S35 pill container, inverted active ════════════════ -->
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="mk">F</span>Finquanta</a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="#top" aria-current="page">Home</a>
+      <button type="button" data-mega="about" aria-expanded="false">About <span class="car">▼</span></button>
+      <button type="button" data-mega="ps" aria-expanded="false">Product &amp; Services <span class="car">▼</span></button>
+      <a href="#clients">Clients</a>
+      <a href="#blog">Blogs</a>
+      <a href="#career">Career</a>
+    </nav>
+
+    <div class="right">
+      <button class="persona" type="button" data-modal="talk">
+        <span class="dot"></span>I am a&hellip;
+      </button>
+      <button class="cta" type="button" data-modal="talk">
+        <span>Talk to an expert</span><i aria-hidden="true">→</i>
+      </button>
+    </div>
+
+    <button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+
+  <!-- MEGA-MENU — S18: 4 link columns + 1 featured cell -->
+  <div class="mega" id="mega-ps">
+    <div class="mega-in">
+      <div class="mcol">
+        <h5><span class="mchip">Tally Software</span></h5>
+        <ul>
+          <li><a href="#">TallyPrime<span class="d">The current release, single and multi-user</span></a></li>
+          <li><a href="#">Tally Virtual User (TVU)</a></li>
+          <li><a href="#">Tally ERP 9</a></li>
+          <li><a href="#">TallyPrime Server</a></li>
+          <li><a href="#">Auditors Edition</a></li>
+          <li><a href="#">Tally Software Services</a></li>
+        </ul>
+      </div>
+      <div class="mcol">
+        <h5><span class="mchip">Services</span></h5>
+        <ul>
+          <li><a href="#cloud">Tally on Cloud<span class="d">Hosted, 99.9% uptime, daily backup</span></a></li>
+          <li><a href="#">Onsite &amp; Remote Support</a></li>
+          <li><a href="#">AMC / Annual Support</a></li>
+          <li><a href="#">Data Synchronisation</a></li>
+          <li><a href="#">Training</a></li>
+          <li><a href="#">Invoice Customisation</a></li>
+        </ul>
+      </div>
+      <div class="mcol">
+        <h5><span class="mchip">Mobile &amp; Solutions</span></h5>
+        <ul>
+          <li><a href="#">Business Dashboard</a></li>
+          <li><a href="#">Customer Profiling</a></li>
+          <li><a href="#">Sales Order Booking</a></li>
+          <li><a href="#">Integrations &amp; APIs</a></li>
+          <li><a href="#">Vertical Solutions</a></li>
+          <li><a href="#">Tally GST</a></li>
+        </ul>
+      </div>
+      <div class="mcol">
+        <h5><span class="mchip">Boosters &amp; Add-Ons</span></h5>
+        <ul>
+          <li><a href="#">TDL Add-Ons<span class="d">15+ modules across security and reporting</span></a></li>
+          <li><a href="#">Solution Boosters</a></li>
+          <li><a href="#">Smart Backup++</a></li>
+          <li><a href="#">Sheet Magic</a></li>
+          <li><a href="#">Audit Trail</a></li>
+        </ul>
+      </div>
+      <!-- the featured cell: new home for Buy, Download and the cloud promo -->
+      <div class="mfeat">
+        <span class="tag">Most asked for</span>
+        <h5>TallyPrime on Cloud</h5>
+        <p>Your Tally, your data, on any device — with daily backups and no server to babysit. Book a 30-minute walkthrough.</p>
+        <div class="row">
+          <a class="mbtn" href="#pricing">Buy TallyPrime</a>
+          <a class="mbtn alt" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mega" id="mega-about">
+    <div class="mega-in">
+      <div class="mcol">
+        <h5><span class="mchip">Company</span></h5>
+        <ul>
+          <li><a href="#">About Finquanta</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Events</a></li>
+        </ul>
+      </div>
+      <div class="mcol">
+        <h5><span class="mchip">Proof</span></h5>
+        <ul>
+          <li><a href="#awards">Awards &amp; recognition</a></li>
+          <li><a href="#clients">Clients we serve</a></li>
+          <li><a href="#stats">By the numbers</a></li>
+        </ul>
+      </div>
+      <div class="mcol">
+        <h5><span class="mchip">Join us</span></h5>
+        <ul>
+          <li><a href="#career">Open roles</a></li>
+          <li><a href="#" data-modal="callback">Partner with us</a></li>
+        </ul>
+      </div>
+      <div class="mcol"></div>
+      <div class="mfeat">
+        <span class="tag">Since 2018</span>
+        <h5>Seven years, one product</h5>
+        <p>We do Tally, and nothing else. That focus is why implementations land on time and support picks up in minutes.</p>
+        <div class="row"><a class="mbtn" href="#">Read our story</a></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ═══ HERO — S27 flat ground · S16 proof · S31 rail ══════════════
+     Five near-identical pastel slides cut to two, per the guide.    -->
+<section class="hero">
+  <div class="wrap">
+
+    <div class="slide on" data-slide="0">
+      <div>
+        <p class="eyebrow" style="color:var(--plum)">Tally Prime, done right</p>
+        <h1>Tally Prime — implemented the Finquanta way.</h1>
+        <p class="sub">Industry-aware setup, masters and ledgers structured for your business, and zero data-loss migration from your previous version.</p>
+        <div class="acts">
+          <button class="cta" type="button" data-modal="talk">
+            <span>Talk to an expert</span><i aria-hidden="true">→</i>
+          </button>
+          <a class="tlink" href="#offerings">Know more <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="shot" style="--ar:16/10">
+          <span class="sid">SHOT 01</span><span class="sar">16:10</span>
+          <span class="st">TallyPrime on desktop</span>
+          <span class="sm">Company dashboard. Scrub party names, GSTINs and balances. Clear Tally brand usage before publishing.</span>
+        </div>
+        <div class="rail" aria-hidden="true">
+          <span>01</span>
+          <span class="track"><i id="railmark" style="top:0;height:37px"></i></span>
+          <span>02</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-slide="1">
+      <div>
+        <p class="eyebrow" style="color:var(--plum)">Tally on Cloud</p>
+        <h1>Run Tally anywhere — any device, 24&times;7.</h1>
+        <p class="sub">Hosted in Indian data centres with daily auto-backup, multi-user concurrency, and bank-grade encryption. No servers to babysit.</p>
+        <div class="acts">
+          <button class="cta" type="button" data-modal="talk">
+            <span>Book a free demo</span><i aria-hidden="true">→</i>
+          </button>
+          <a class="tlink" href="#cloud">See how it works <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="shot" style="--ar:16/10">
+          <span class="sid">SHOT 02</span><span class="sar">16:10</span>
+          <span class="st">TallyPrime in a hosted browser session</span>
+          <span class="sm">Show the browser chrome — the point is that it is not a local install. Same scrubbing rules as Shot 01.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- trust cluster, above the fold — S16 -->
+    <div class="trustbar">
+      <div class="t"><span class="v num">7+</span><span class="l">Years on Tally</span></div>
+      <div class="t"><span class="v num">250+</span><span class="l">Businesses served</span></div>
+      <div class="t"><span class="v num">18,500+</span><span class="l">Tickets resolved</span></div>
+      <div class="ctl">
+        <button class="hctl" type="button" id="hprev" aria-label="Previous slide">←</button>
+        <button class="hctl" type="button" id="hpause" aria-label="Pause slideshow" aria-pressed="false">❚❚</button>
+        <button class="hctl" type="button" id="hnext" aria-label="Next slide">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CLIENTS — S04 marquee + S12 typographic tile ════════════════ -->
+<section class="clients" id="clients">
+  <div class="wrap">
+    <div class="cl-grid">
+      <div class="cl-tile">
+        <p class="eyebrow">Who we work with</p>
+        <h3>250+ Indian SMEs run their books on Tally we set up.</h3>
+        <p>Distribution, manufacturing, pharma, textiles and exports — mostly across Maharashtra and Gujarat.</p>
+      </div>
+      <div class="marquee">
+        <div class="mtrack" id="mtrack"></div>
+      </div>
+    </div>
+    <p style="margin:22px 0 0;font-size:13px;color:var(--ink-500)">
+      <span class="ph">Placeholder</span>
+      All twelve wordmarks are invented. Ship real logos only with written permission — the guide is explicit that fabricated client names are worse than an empty band.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══════════════════════════════════════════════ -->
+<section class="tst" id="testimonials">
+  <div class="wrap">
+    <div class="shead">
+      <div class="lead">
+        <p class="eyebrow">In their words</p>
+        <h2>What the accounts team says six months in.</h2>
+        <p>Four sectors, not seven — the live site exposes nine filters where six resolve to a single card.</p>
+      </div>
+      <a class="tlink" href="#">All case studies <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="tgrid">
+      <article class="tcard">
+        <span class="go" aria-hidden="true">↗</span>
+        <blockquote>Finquanta's MIS dashboards gave us visibility into our distribution margins that we did not know Tally could deliver. Decisions we used to make on hunches are now backed by numbers.</blockquote>
+        <div class="who">
+          <span class="tag2"><span>Pharma</span><span>Sahyadri Pharma</span></span>
+          <div>
+            <div class="nm">Anita Deshpande</div>
+            <div class="rl">Head of Finance</div>
+          </div>
+          <span class="ph">Placeholder</span>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <span class="go" aria-hidden="true">↗</span>
+        <blockquote>Multi-branch sync across our 14 locations just works. Stock counts reconcile in real time, and the support team picks up the phone within minutes.</blockquote>
+        <div class="who">
+          <span class="tag2"><span>Distribution</span><span>Mahalaxmi Distributors</span></span>
+          <div>
+            <div class="nm">Rahul Joshi</div>
+            <div class="rl">Operations Director</div>
+          </div>
+          <span class="ph">Placeholder</span>
+        </div>
+      </article>
+
+      <article class="tcard">
+        <span class="go" aria-hidden="true">↗</span>
+        <blockquote lang="mr">आमच्या हिशोबाच्या समस्या Finquanta ने एका आठवड्यात सोडवल्या. त्यांची टीम खूप व्यावसायिक आणि मदतगार आहे — आम्ही पूर्णपणे समाधानी आहोत.</blockquote>
+        <div class="who">
+          <span class="tag2"><span>Retail</span><span>Aarambh Retail</span></span>
+          <div>
+            <div class="nm">Sneha Kulkarni</div>
+            <div class="rl">Owner</div>
+          </div>
+          <span class="ph">Placeholder</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST STATS — S16, one accented cell only ═══════════════════ -->
+<section class="stats" id="stats">
+  <div class="wrap">
+    <div class="shead">
+      <div class="lead">
+        <p class="eyebrow">By the numbers</p>
+        <h2>Seven years of Tally, counted.</h2>
+      </div>
+    </div>
+    <div class="sgrid">
+      <div class="scell"><span class="v num">7+</span><span class="l">Years of Tally experience</span></div>
+      <div class="scell"><span class="v num">250+</span><span class="l">Businesses served</span></div>
+      <div class="scell hot"><span class="v num">18,500+</span><span class="l">Support tickets resolved</span></div>
+      <div class="scell"><span class="v num">90+</span><span class="l">Custom TDLs deployed</span></div>
+      <div class="scell"><span class="v num">600+</span><span class="l">Users trained</span></div>
+    </div>
+    <p style="margin:20px 0 0;font-size:13px;color:var(--ink-500)">
+      <span class="ph">Placeholder</span>
+      Conservative but unsourced. Every figure needs a source before launch — numbers are the whole argument of this band.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ AWARDS — S18 label chips ════════════════════════════════════ -->
+<section class="awd" id="awards">
+  <div class="wrap">
+    <div class="shead">
+      <div class="lead">
+        <p class="eyebrow">Recognition</p>
+        <h2>Awards and partner recognition.</h2>
+      </div>
+      <span class="ph">All six fabricated</span>
+    </div>
+    <div class="agrid">
+      <article class="acard">
+        <span class="yr num">2024</span>
+        <h4>Tally Excellence Partner</h4>
+        <p>Recognised for sustained excellence in Tally implementation and customer service across the western region.</p>
+        <div class="iss">Tally Solutions</div>
+      </article>
+      <article class="acard">
+        <span class="yr num">2024</span>
+        <h4>Rapid Growth Partner</h4>
+        <p>Among the fastest-growing partners by net new business onboarded year-on-year.</p>
+        <div class="iss">Tally Solutions</div>
+      </article>
+      <article class="acard">
+        <span class="yr num">2023</span>
+        <h4>Top TDL Developer — Western Region</h4>
+        <p>Recognised for the volume and complexity of custom TDL solutions deployed for SME customers.</p>
+        <div class="iss">Tally Solutions</div>
+      </article>
+    </div>
+    <p style="margin:22px 0 0;font-size:13px;color:var(--ink-500)">
+      Issuers like &ldquo;Western Region Partners Forum&rdquo; and &ldquo;SME Excellence Forum&rdquo; do not exist. Naming a real body as the issuer of an award you were not given is the one placeholder here with legal exposure — three shown instead of six until they are verified.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ VALUES — S36 iconless rows, icon chip purged ════════════════ -->
+<section class="val">
+  <div class="wrap">
+    <div class="shead">
+      <div class="lead">
+        <p class="eyebrow">How we work</p>
+        <h2>Six commitments, and what each one costs us.</h2>
+      </div>
+    </div>
+    <div class="vgrid">
+      <div class="vrow"><h4>Trust</h4><p>Hard-earned, never assumed. Confidentiality and reliability come first.</p></div>
+      <div class="vrow"><h4>Honesty &amp; Integrity</h4><p>Straight talk on scope, timelines, and pricing — even when it costs us a deal.</p></div>
+      <div class="vrow"><h4>Transparency</h4><p>Clear quotes, open communication, no hidden fees, no last-minute surprises.</p></div>
+      <div class="vrow"><h4>Ethical Framework</h4><p>Decisions guided by what is right for the customer's business, not the quickest sale.</p></div>
+      <div class="vrow"><h4>Customer Satisfaction</h4><p>Measured per project. We do not consider work done until the customer says it is.</p></div>
+      <div class="vrow"><h4>Quality</h4><p>Code review, testing, documentation — the boring fundamentals that prevent fire-fights.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OFFERINGS — S12 bento + S18 grammar, height reserved ════════ -->
+<section class="off" id="offerings">
+  <div class="wrap">
+    <div class="shead">
+      <div class="lead">
+        <p class="eyebrow">What we do</p>
+        <h2>Everything Tally, in one place.</h2>
+        <p>Twenty-four offerings across six areas — the densest real content on the site, and the only section with no placeholder records in it.</p>
+      </div>
+      <a class="tlink" href="#">Full catalogue <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Offerings"></div>
+    <div class="bento"><div class="bgrid" id="bgrid"></div></div>
+  </div>
+</section>
+
+<!-- ═══ TALLY ON CLOUD — S11 fact rows + S34 panel ══════════════════ -->
+<section class="cloud" id="cloud">
+  <div class="wrap">
+    <div class="shead">
+      <div class="lead">
+        <p class="eyebrow">Tally on Cloud</p>
+        <h2>Your Tally, hosted properly.</h2>
+        <p>Run TallyPrime securely on Finquanta's hosted cloud — from anywhere, on any device, with every TDL and add-on you already use.</p>
+      </div>
+    </div>
+
+    <div class="cgrid">
+      <dl class="cdl">
+        <div class="frow"><dt>Access from anywhere</dt><dd>Work remotely across branches, cities, or countries — the same Tally, the same data, on any device.</dd></div>
+        <div class="frow"><dt>High security</dt><dd>Encrypted at rest and in transit, multi-factor login, and role-based user permissions.</dd></div>
+        <div class="frow"><dt>Auto backup &amp; recovery</dt><dd>Daily automated backups stored off-site. One-click restore to any point in the last 30 days.</dd></div>
+        <div class="frow"><dt>Uptime</dt><dd>99.9%, on always-on infrastructure in Indian data centres with redundant power and network paths.</dd></div>
+        <div class="frow"><dt>Multi-user connectivity</dt><dd>Concurrent access for your whole team without the LAN bottlenecks of a self-hosted server.</dd></div>
+        <div class="frow"><dt>Zero IT hassle</dt><dd>No servers to maintain, no patches to apply, no antivirus to license — we handle everything.</dd></div>
+      </dl>
+
+      <!-- S34 — the site's one inline enquiry surface, not behind an overlay -->
+      <form class="panel" id="cloudform">
+        <h3>See it on your own data.</h3>
+        <p>A 30-minute call. We load a copy of your company file and you drive.</p>
+        <div class="fld">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="fld">
+          <label for="cf-phone">Phone</label>
+          <input id="cf-phone" name="phone" type="tel" placeholder="+91" required>
+        </div>
+        <button class="cta" type="submit"><span>Book the demo</span><i aria-hidden="true">→</i></button>
+        <p class="fine">No obligation · we reply within one working day</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND — S38 + S10. One component, three content slots. ═══ -->
+<section class="ctab">
+  <div class="wrap in">
+    <div>
+      <p class="eyebrow">Talk to someone who has done it before</p>
+      <h2>Get a line-item quote, not a brochure.</h2>
+      <p>Tell us what you run today. We come back within 24 hours with scope, timeline and a price per line — including what you do not need.</p>
+    </div>
+    <div class="acts">
+      <button class="cta on-ink" type="button" data-modal="enquiry">
+        <span>Get a quote</span><i aria-hidden="true">→</i>
+      </button>
+      <a class="tlink on-ink" href="tel:+919912037912">Or call us <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — S05 wordmark + S18 columns, contrast fixed ═════════ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="wordmark">
+      <p class="big">Finquanta</p>
+      <p class="sub">Tally implementation, customisation and support for Indian SMEs. Nashik &amp; Pune.</p>
+    </div>
+
+    <div class="fgrid">
+      <div class="fcol">
+        <h5><span class="fchip">Company</span></h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#clients">Clients</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#career">Career</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5><span class="fchip">Products</span></h5>
+        <ul>
+          <li><a href="#pricing">TallyPrime Pricing</a></li>
+          <li><a href="#">Tally Software</a></li>
+          <li><a href="#cloud">Tally on Cloud</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">Add-ons</a></li>
+          <li><a href="#">Solution Boosters</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5><span class="fchip">Services</span></h5>
+        <ul>
+          <li><a href="#">Tally Customisation</a></li>
+          <li><a href="#">Tally Integration</a></li>
+          <li><a href="#">AMC / Support</a></li>
+          <li><a href="#">Training</a></li>
+          <li><a href="#">Tally GST &amp; E-Way Bill</a></li>
+          <li><a href="#download">Downloads</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5><span class="fchip">Policies</span></h5>
+        <ul>
+          <li><a href="#">All Policies</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Delivery Policy</a></li>
+          <li><a href="#">EULA</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fbot">
+      <span class="addr">
+        Finquanta Solutions, Nashik, Maharashtra, India ·
+        GSTIN <span class="ph">to be supplied</span>
+      </span>
+      <span class="rt">
+        <a href="tel:+919912037912">+91 99120 37912</a>
+        <a href="mailto:hello@finquanta.in">hello@finquanta.in</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ MOBILE SHEET ═══════════════════════════════════════════════ -->
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="sheet-hd">
+    <span class="tag2"><span>Tally Partner</span><span>Since 2018</span></span>
+    <button class="x" type="button" id="sheetx" aria-label="Close menu">&times;</button>
+  </div>
+  <div class="sheet-body">
+    <label class="srch">
+      <span aria-hidden="true">⌕</span>
+      <input type="search" placeholder="Search 30+ pages" aria-label="Search the site">
+    </label>
+
+    <div class="chiprow" role="group" aria-label="Filter product and services links">
+      <button type="button" aria-pressed="true">All</button>
+      <button type="button" aria-pressed="false">Software</button>
+      <button type="button" aria-pressed="false">Services</button>
+      <button type="button" aria-pressed="false">Mobile</button>
+      <button type="button" aria-pressed="false">Add-ons</button>
+    </div>
+
+    <div>
+      <a class="srow" href="#top">Home</a>
+      <a class="srow" href="#offerings">Product &amp; Services <span class="q">25 pages</span></a>
+      <a class="srow" href="#clients">Clients</a>
+      <a class="srow" href="#testimonials">Testimonials</a>
+      <a class="srow" href="#pricing">Pricing <span class="q">from ₹22,500</span></a>
+      <a class="srow" href="#download">Download</a>
+      <a class="srow" href="#blog">Blog</a>
+      <a class="srow" href="#career">Career</a>
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center;margin-top:auto;padding-top:12px">
+      <button class="cta" type="button" data-modal="talk" style="flex:1;justify-content:space-between">
+        <span>Talk to an expert</span><i aria-hidden="true">→</i>
+      </button>
+      <a class="sheet-call" href="tel:+919912037912" aria-label="Call us">✆</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ FLOATING ACTIONS — S15 plane + S10 CTA ═════════════════════ -->
+<div class="fab">
+  <a class="rnd" href="https://wa.me/919912037912" aria-label="WhatsApp us">✆</a>
+  <button class="cta" type="button" data-modal="talk">
+    <span>Talk to an expert</span><i aria-hidden="true">→</i>
+  </button>
+</div>
+
+<!-- ═══ MODAL — S15, one shell ═════════════════════════════════════ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <button class="x" type="button" id="modalx" aria-label="Close">&times;</button>
+  <h3 id="mtitle">Talk to an expert</h3>
+  <p class="sub" id="msub">30-minute call · no obligation · reply within 1 working day</p>
+  <form class="mform" id="mform">
+    <div class="mfld"><label for="m-name">Name</label>
+      <input id="m-name" type="text" placeholder="Your name" required></div>
+    <div class="mfld"><label for="m-phone">Phone</label>
+      <input id="m-phone" type="tel" placeholder="+91" required></div>
+    <div class="mfld"><label for="m-co">Company</label>
+      <input id="m-co" type="text" placeholder="Business name"></div>
+    <button class="cta" type="submit"><span>Request the call</span><i aria-hidden="true">→</i></button>
+    <p class="mnote">Prototype — this form does not submit anywhere.</p>
+  </form>
+</div>
+
+<div class="proto">
+  Prototype · homepage
+  <button type="button" id="themebtn">toggle theme</button>
+</div>
+
+<script>
+/* ── data ─────────────────────────────────────────────────────────── */
+var CLIENTS = [
+  ["Mahalaxmi Distributors","Distribution"],["Sai Industries","Manufacturing"],
+  ["Konkan Traders","Distribution"],["Deccan Polymers","Chemicals"],
+  ["Neelkanth Foods","FMCG"],["Sahyadri Pharma","Pharma"],
+  ["Rangoli Textiles","Textiles"],["Pranay Exports","Exports"],
+  ["Vikram Enterprises","Trading"],["Aarambh Retail","Retail"],
+  ["Shreeji Packaging","Packaging"],["Maitri Chemicals","Chemicals"]
+];
+
+var TABS = [
+  {id:"products",label:"Products",items:[
+    {t:"TallyPrime",b:"Latest TallyPrime licenses, single and multi-user editions with on-call activation support.",c:"Free trial"},
+    {t:"TallyPrime Server",b:"Multi-user concurrent access for teams of 10+, with administrative controls and high concurrency.",c:"Free trial"},
+    {t:"Tally for CA (Auditor's Edition)",b:"Read-only client-data analysis with a full audit trail, built for chartered accountants."},
+    {t:"Tally Software Services (TSS)",b:"Subscription that keeps your Tally current with the latest releases, features and statutory updates.",c:"Renew"}
+  ]},
+  {id:"services",label:"Services",items:[
+    {t:"AMC / Annual Support Cover",b:"Predictable annual support — onsite plus remote — with priority response and quarterly health checks."},
+    {t:"Data Synchronisation",b:"Branch-to-HQ Tally sync configured and monitored. Conflict-free reconciliation across locations."},
+    {t:"Tally Training",b:"Role-based training for accounts, sales and management teams — onsite or virtual, with certificates."},
+    {t:"Priority Support",b:"Sub-hour response SLAs and a dedicated account engineer for businesses where Tally cannot stop."},
+    {t:"Onsite & Remote Support",b:"Regional engineers for hands-on visits, plus secure remote sessions for everything else."}
+  ]},
+  {id:"mobile",label:"Mobile Apps",items:[
+    {t:"Business Dashboard",b:"Sales, receivables, stock and bank balances on your phone — synced to your Tally in real time."},
+    {t:"Customer Profiling",b:"Field reps view customer history, outstanding and credit limits before every sales call."},
+    {t:"Transaction Approvals",b:"Approve discounts, credit notes and large orders from your phone — with full audit trail."},
+    {t:"Sales Order Booking",b:"Field orders land directly in Tally as draft sales orders, with item lookup and pricing."}
+  ]},
+  {id:"solutions",label:"Solutions",items:[
+    {t:"Vertical Solutions",b:"Industry packs for trading, manufacturing, distribution and services — preconfigured masters and reports."},
+    {t:"Tally Customisation",b:"Bespoke vouchers, invoice formats, reports and workflows tailored to your SOPs."},
+    {t:"Integrations & APIs",b:"Connect Tally to your e-commerce, payment gateway, CRM, banking or custom in-house systems."},
+    {t:"Tally GST",b:"End-to-end GST workflow — invoicing, e-invoice, e-way bill, returns and reconciliation."}
+  ]},
+  {id:"addons",label:"Add-Ons",items:[
+    {t:"Smart Backup++",b:"Scheduled, encrypted, off-site Tally backups with one-click restore. Never lose a day of data."},
+    {t:"Multi File Attachment",b:"Attach POs, invoices and supporting documents to any Tally voucher. Searchable and audit-friendly."},
+    {t:"Sheet Magic",b:"Pull any Tally report into Excel with a refresh button. Pivot, format and email — same as before, faster."},
+    {t:"Audit Trail with Voucher History",b:"Track every voucher edit — who, when, what changed. Export-ready audit reports."},
+    {t:"15+ modules in the catalogue",b:"Security, automation, productivity and reporting. Browse everything we build and maintain.",c:"Browse all",feat:true}
+  ]},
+  {id:"cloud",label:"Tally on Cloud",items:[
+    {t:"Run Tally on the cloud",b:"Hosted TallyPrime with daily backups, multi-user access and 99.9% uptime.",c:"See details"},
+    {t:"Free demo",b:"Book a 30-minute walkthrough — see your own Tally on cloud, with your data, before you commit.",c:"Book demo",feat:true}
+  ]}
+];
+
+/* ── clients marquee (duplicated once for a seamless loop) ────────── */
+(function(){
+  var t = document.getElementById("mtrack"), h = "";
+  function cell(c){
+    return '<div class="lgo"><b>' + c[0] + '</b><s>' + c[1] + '</s></div>';
+  }
+  for (var pass = 0; pass < 2; pass++){
+    for (var i = 0; i < CLIENTS.length; i++) h += cell(CLIENTS[i]);
+  }
+  t.innerHTML = h;
+})();
+
+/* ── offerings tabs ───────────────────────────────────────────────── */
+(function(){
+  var tabsEl = document.querySelector(".tabs"), grid = document.getElementById("bgrid");
+  function esc(s){ var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+  function render(i){
+    var tab = TABS[i], h = "";
+    for (var k = 0; k < tab.items.length; k++){
+      var it = tab.items[k];
+      h += '<article class="bcard' + (it.feat ? " feat" : "") + '">'
+         +   '<span class="go" aria-hidden="true">↗</span>'
+         +   '<h4>' + esc(it.t) + '</h4>'
+         +   '<p>' + esc(it.b) + '</p>'
+         +   (it.c ? '<span class="lbl">' + esc(it.c) + '</span>' : "")
+         + '</article>';
+    }
+    grid.innerHTML = h;
+    var btns = tabsEl.querySelectorAll("button");
+    for (var b = 0; b < btns.length; b++){
+      btns[b].setAttribute("aria-selected", b === i ? "true" : "false");
+    }
+  }
+  var th = "";
+  for (var i = 0; i < TABS.length; i++){
+    th += '<button type="button" role="tab" data-i="' + i + '" aria-selected="'
+        + (i === 0 ? "true" : "false") + '">' + TABS[i].label + "</button>";
+  }
+  tabsEl.innerHTML = th;
+  tabsEl.addEventListener("click", function(e){
+    var b = e.target.closest("button[data-i]");
+    if (b) render(parseInt(b.getAttribute("data-i"), 10));
+  });
+  render(0);
+})();
+
+/* ── hero carousel — autoplay with a real pause control (WCAG 2.2.2) ─ */
+(function(){
+  var slides = document.querySelectorAll(".slide"),
+      mark   = document.getElementById("railmark"),
+      n = slides.length, cur = 0, timer = null,
+      reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function show(i){
+    cur = (i + n) % n;
+    for (var k = 0; k < n; k++) slides[k].classList.toggle("on", k === cur);
+    if (mark){
+      var h = 74 / n;
+      mark.style.height = h + "px";
+      mark.style.top = (cur * h) + "px";
+    }
+  }
+  function play(){ if (!reduce) timer = setInterval(function(){ show(cur + 1); }, 6500); }
+  function stop(){ clearInterval(timer); timer = null; }
+
+  document.getElementById("hnext").addEventListener("click", function(){ stop(); show(cur + 1); setPaused(true); });
+  document.getElementById("hprev").addEventListener("click", function(){ stop(); show(cur - 1); setPaused(true); });
+
+  var pb = document.getElementById("hpause");
+  function setPaused(p){
+    pb.setAttribute("aria-pressed", p ? "true" : "false");
+    pb.textContent = p ? "▶" : "❚❚";
+    pb.setAttribute("aria-label", p ? "Play slideshow" : "Pause slideshow");
+  }
+  pb.addEventListener("click", function(){
+    if (timer){ stop(); setPaused(true); } else { play(); setPaused(false); }
+  });
+
+  show(0);
+  if (reduce) setPaused(true); else play();
+})();
+
+/* ── mega-menu ────────────────────────────────────────────────────── */
+(function(){
+  var open = null;
+  function close(){
+    if (!open) return;
+    document.getElementById("mega-" + open).classList.remove("on");
+    var b = document.querySelector('[data-mega="' + open + '"]');
+    if (b) b.setAttribute("aria-expanded", "false");
+    open = null;
+  }
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-mega]");
+    if (btn){
+      var id = btn.getAttribute("data-mega");
+      if (open === id){ close(); return; }
+      close();
+      open = id;
+      document.getElementById("mega-" + id).classList.add("on");
+      btn.setAttribute("aria-expanded", "true");
+      return;
+    }
+    if (!e.target.closest(".mega")) close();
+  });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+})();
+
+/* ── mobile sheet ─────────────────────────────────────────────────── */
+(function(){
+  var sheet = document.getElementById("sheet"),
+      scrim = document.getElementById("scrim"),
+      burger = document.getElementById("burger");
+  function open(){ sheet.classList.add("on"); scrim.classList.add("on");
+    burger.setAttribute("aria-expanded", "true"); }
+  function close(){ sheet.classList.remove("on"); scrim.classList.remove("on");
+    burger.setAttribute("aria-expanded", "false"); }
+  burger.addEventListener("click", open);
+  document.getElementById("sheetx").addEventListener("click", close);
+  scrim.addEventListener("click", close);
+  sheet.addEventListener("click", function(e){ if (e.target.closest(".srow")) close(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+
+  var chips = sheet.querySelectorAll(".chiprow button");
+  for (var i = 0; i < chips.length; i++){
+    chips[i].addEventListener("click", function(){
+      for (var k = 0; k < chips.length; k++) chips[k].setAttribute("aria-pressed", "false");
+      this.setAttribute("aria-pressed", "true");
+    });
+  }
+})();
+
+/* ── modal — one shell, five bodies ───────────────────────────────── */
+(function(){
+  var modal = document.getElementById("modal"),
+      scrim = document.getElementById("scrim"),
+      title = document.getElementById("mtitle"),
+      sub   = document.getElementById("msub"),
+      last  = null;
+  var COPY = {
+    talk:     ["Talk to an expert",  "30-minute call · no obligation · reply within 1 working day"],
+    enquiry:  ["Get a line-item quote", "Scope, timeline and a price per line — back within 24 hours"],
+    callback: ["Request a callback", "Tell us when. We call you, not the other way round."]
+  };
+  function open(kind){
+    var c = COPY[kind] || COPY.talk;
+    title.textContent = c[0]; sub.textContent = c[1];
+    last = document.activeElement;
+    modal.classList.add("on"); scrim.classList.add("on");
+    var f = modal.querySelector("input"); if (f) f.focus();
+  }
+  function close(){
+    modal.classList.remove("on");
+    if (!document.getElementById("sheet").classList.contains("on")) scrim.classList.remove("on");
+    if (last && last.focus) last.focus();
+  }
+  document.addEventListener("click", function(e){
+    var t = e.target.closest("[data-modal]");
+    if (t){ e.preventDefault(); open(t.getAttribute("data-modal")); }
+  });
+  document.getElementById("modalx").addEventListener("click", close);
+  scrim.addEventListener("click", close);
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+  document.getElementById("mform").addEventListener("submit", function(e){
+    e.preventDefault();
+    this.querySelector(".mnote").textContent = "Prototype — nothing was sent. Wire this to the real endpoint.";
+  });
+  document.getElementById("cloudform").addEventListener("submit", function(e){
+    e.preventDefault();
+    this.querySelector(".fine").textContent = "Prototype — nothing was sent.";
+  });
+})();
+
+/* ── theme toggle (prototype convenience) ─────────────────────────── */
+(function(){
+  var btn = document.getElementById("themebtn"), root = document.documentElement;
+  try {
+    var saved = localStorage.getItem("fq-theme");
+    if (saved) root.setAttribute("data-theme", saved);
+  } catch (_) {}
+  btn.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    if (!cur) {
+      cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    var next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("fq-theme", next); } catch (_) {}
+  });
+})();
+</script>
+</body>
+</html>
