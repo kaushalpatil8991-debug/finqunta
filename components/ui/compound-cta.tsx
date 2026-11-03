@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 const compoundCtaVariants = cva(
   [
     "inline-flex cursor-pointer items-center gap-[14px] whitespace-nowrap",
-    "rounded-md border-0 py-2 pl-5 pr-2",
+    "rounded-pill border-0 py-2 pl-5 pr-2 shadow-[var(--fq-shadow-btn)]",
     // Manrope, never the serif — S19 keeps the serif out of every control.
     "font-sans text-[15px] font-bold leading-[1.2]",
     "bg-[color:var(--cta-bg)] text-[color:var(--cta-fg)]",
@@ -46,26 +46,26 @@ const compoundCtaVariants = cva(
         plum: [
           "[--cta-bg:var(--color-primary)]",
           "[--cta-bg-h:var(--color-primary-600)]",
-          "[--cta-fg:#fff]",
-          "[--cta-i:rgba(255,255,255,0.22)]",
+          "[--cta-fg:var(--color-on-dark)]",
+          "[--cta-i:var(--fq-white-a22)]",
           "[--cta-focus:var(--color-primary)]",
         ].join(" "),
         /** On an ink surface — CTA band, footer, inverted hero. Sand is the
          *  dark-ground accent; ink-on-sand is 9.69:1. */
         sand: [
           "[--cta-bg:var(--color-accent-sand)]",
-          "[--cta-bg-h:#f0d6ae]",
+          "[--cta-bg-h:var(--fq-hex-f0d6ae)]",
           "[--cta-fg:var(--color-ink)]",
-          "[--cta-i:rgba(46,27,69,0.16)]",
+          "[--cta-i:var(--fq-c2e1b45-a16)]",
           "[--cta-focus:var(--color-cream-200)]",
         ].join(" "),
         /** Inside the S34 plum enquiry panel — white ground, plum label. */
         invert: [
-          "[--cta-bg:#fff]",
+          "[--cta-bg:var(--color-on-dark)]",
           "[--cta-bg-h:var(--color-cream-200)]",
           "[--cta-fg:var(--color-primary)]",
-          "[--cta-i:rgba(122,79,176,0.16)]",
-          "[--cta-focus:#fff]",
+          "[--cta-i:var(--fq-c7a4fb0-a16)]",
+          "[--cta-focus:var(--color-on-dark)]",
         ].join(" "),
       },
     },

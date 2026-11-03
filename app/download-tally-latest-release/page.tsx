@@ -77,7 +77,7 @@ export default function DownloadPage() {
             title="What TallyPrime expects from your machine."
             lead="Minimums below; if you are unsure whether your hardware qualifies, send us a screenshot of your system properties — we will tell you."
           />
-          <dl className="grid grid-cols-1 divide-y divide-cream-200 overflow-hidden rounded-lg border border-cream-200 bg-cream">
+          <dl className="grid grid-cols-1 divide-y divide-cream-200 overflow-hidden rounded-lg border border-transparent bg-cream">
             {systemRequirements.map((row) => (
               <div
                 key={row.kind}
@@ -108,7 +108,7 @@ function DownloadCard({ item }: { item: Download }) {
   const Icon = isMobile ? Smartphone : HardDrive;
 
   return (
-    <li className="flex flex-col gap-4 rounded-lg border border-cream-200 bg-white p-6 shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]">
+    <li className="flex flex-col gap-4 rounded-lg border border-transparent bg-[var(--fq-card)] p-6 shadow-[var(--shadow-card)] transition-[transform,scale,box-shadow,border-color,background-color,color,opacity] hover:scale-[1.02]">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <span

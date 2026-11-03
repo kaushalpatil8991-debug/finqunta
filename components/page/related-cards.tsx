@@ -130,11 +130,11 @@ export function RelatedCards({ items, className }: RelatedCardsProps) {
           */}
           <article
             className={cn(
-              "group relative flex h-full flex-col rounded-lg border border-hairline bg-white p-5 sm:p-6",
-              "shadow-[var(--shadow-card)] transition-[border-color,box-shadow,transform] duration-150 ease-out",
-              "hover:-translate-y-0.5 hover:border-hairline-strong hover:shadow-[var(--shadow-card-hover)]",
+              "group relative flex h-full flex-col rounded-lg border border-transparent bg-[var(--fq-card)] p-5 sm:p-6",
+              "shadow-[var(--shadow-card)] transition-[border-color,box-shadow,transform,scale] duration-150 ease-out",
+              "hover:scale-[1.02]",
               "focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary",
-              "motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              "motion-reduce:transition-none motion-reduce:hover:scale-100"
             )}
           >
             {/* Card header. `pr-12` keeps a long chip clear of the arrow's
@@ -142,7 +142,7 @@ export function RelatedCards({ items, className }: RelatedCardsProps) {
                 is Manrope — serif never sets an 11px label (S19). ink-500 on
                 white is 6.4:1. */}
             <div className="pr-12">
-              <span className="inline-flex items-center rounded-pill border border-hairline-strong px-[11px] py-1 font-sans text-eyebrow font-bold uppercase tracking-[0.09em] text-ink-500">
+              <span className="inline-flex items-center rounded-pill border border-hairline-strong px-[11px] py-1 font-sans text-eyebrow font-bold text-ink-500">
                 {categoryLabel(item.base)}
               </span>
             </div>

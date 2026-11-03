@@ -20,9 +20,9 @@ interface SectionBandProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const toneClass: Record<NonNullable<SectionBandProps["tone"]>, string> = {
-  cream: "bg-cream",
-  white: "bg-white",
-  "cream-alt": "bg-cream-100",
+  cream: "bg-cream [--fq-card:var(--color-cream-100)]",
+  white: "bg-cream-100 [--fq-card:var(--fq-tile)]",
+  "cream-alt": "bg-cream-100 [--fq-card:var(--fq-tile)]",
 };
 
 /**
@@ -52,7 +52,7 @@ export function SectionBand({
       {bare ? (
         children
       ) : (
-        <div className="mx-auto max-w-[1280px] px-gutter sm:px-gutter-sm md:px-gutter-md lg:px-gutter-lg">
+        <div className="mx-auto max-w-[80rem] px-gutter sm:px-gutter-sm md:px-gutter-md lg:px-gutter-lg">
           {children}
         </div>
       )}

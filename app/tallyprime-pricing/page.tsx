@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionHeader } from "@/components/ui/section-header";
 import { PageHero } from "@/components/page/page-hero";
@@ -47,10 +48,17 @@ export default function TallyPricingPage() {
             <TierCard key={tier.id} tier={tier} />
           ))}
         </ul>
+        <p className="mt-8 text-center text-body text-ink-700">
+          Thinking of renting instead of buying?{" "}
+          <Link href="/tallyprime-buy-vs-rent" className="font-bold text-primary underline-offset-4 hover:underline">
+            Compare the cost year by year
+          </Link>
+          .
+        </p>
       </SectionBand>
 
       <SectionBand tone="white">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <SectionHeader
             eyebrow="FAQs"
             title="Pricing questions, answered plainly."
@@ -64,7 +72,7 @@ export default function TallyPricingPage() {
 
       <CtaBand
         title="Want a line-item quote with your numbers?"
-        sub="Tell us team size and current setup — we send a priced, itemised quote in under 24 hours."
+        sub="Tell us your team size and current setup, and we send a priced, itemised quote."
         source="enquiry"
         primaryLabel="Get a quote"
       />

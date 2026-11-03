@@ -8,7 +8,7 @@ export const EyebrowLabel = React.forwardRef<
   <span
     ref={ref}
     className={cn(
-      "inline-block text-eyebrow font-semibold uppercase tracking-[0.12em] text-primary",
+      "inline-block text-body-sm font-bold text-primary",
       className
     )}
     {...props}

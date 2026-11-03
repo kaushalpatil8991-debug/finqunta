@@ -72,7 +72,7 @@ export default async function ProductDetailPage({
             tagline={p.tagline}
             chips={[
               { tone: "plum", label: "Tally Partner" },
-              { tone: "sand", label: "Same-day activation" },
+              { tone: "sand", label: "Sold at Tally's MRP" },
             ]}
             bullets={[
               "Sourced directly from Tally Solutions at MRP",
@@ -108,7 +108,7 @@ export default async function ProductDetailPage({
               <li
                 key={e.id}
                 className={cn(
-                  "flex flex-col rounded-lg border border-cream-200 bg-white p-8 shadow-[var(--shadow-card)]"
+                  "flex flex-col rounded-lg border border-transparent bg-[var(--fq-card)] p-8 shadow-[var(--shadow-card)]"
                 )}
               >
                 <h3 className="text-h3 font-semibold text-ink">{e.name}</h3>

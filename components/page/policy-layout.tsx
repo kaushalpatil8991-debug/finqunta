@@ -75,7 +75,7 @@ export function PolicyLayout({ doc }: { doc: PolicyDoc }) {
           >
             <p
               id={tocId}
-              className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-primary"
+              className="text-eyebrow font-semibold text-primary"
             >
               On this page
             </p>
@@ -109,7 +109,7 @@ export function PolicyLayout({ doc }: { doc: PolicyDoc }) {
             </Button>
           </aside>
 
-          <article className="rounded-lg border border-hairline bg-white p-6 sm:p-8 md:p-12">
+          <article className="rounded-lg border border-transparent bg-[var(--fq-card)] p-6 sm:p-8 md:p-12">
             <Prose size="lg">
               <p className="mb-8 text-body text-ink-700 sm:mb-10 sm:text-body-lg">
                 {doc.intro}
@@ -163,7 +163,7 @@ function PolicyBlockView({ block }: { block: PolicyBlock }) {
         <div className="my-6 overflow-x-auto">
           <table className="w-full min-w-[30rem] border-collapse text-body-sm">
             {block.caption && (
-              <caption className="mb-3 text-left text-caption uppercase tracking-[0.08em] text-ink-500">
+              <caption className="mb-3 text-left text-caption text-ink-500">
                 {block.caption}
               </caption>
             )}
@@ -173,7 +173,7 @@ function PolicyBlockView({ block }: { block: PolicyBlock }) {
                   <th
                     key={c}
                     scope="col"
-                    className="border-b border-hairline-strong pb-2 pr-6 text-left text-caption font-semibold uppercase tracking-[0.08em] text-ink-500 last:pr-0"
+                    className="border-b border-hairline-strong pb-2 pr-6 text-left text-caption font-semibold text-ink-500 last:pr-0"
                   >
                     {c}
                   </th>
@@ -213,7 +213,7 @@ function PolicyBlockView({ block }: { block: PolicyBlock }) {
           )}
         >
           {block.title && (
-            <p className="!mb-1 !mt-0 text-body-sm font-semibold uppercase tracking-[0.06em] text-ink">
+            <p className="!mb-1 !mt-0 text-body-sm font-semibold text-ink">
               {block.title}
             </p>
           )}

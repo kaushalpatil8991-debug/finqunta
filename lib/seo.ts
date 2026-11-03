@@ -34,14 +34,14 @@ export function organizationSchema() {
     logo: absUrl("/favicon.ico"),
     description: site.tagline,
     slogan: site.tagline,
-    foundingDate: String(site.founded),
+    ...(site.confirmed.founded ? { foundingDate: String(site.founded) } : {}),
     founder: { "@type": "Person", name: site.director.name },
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: site.phone.tel,
+        ...(site.confirmed.phone ? { telephone: site.phone.tel } : {}),
         contactType: "customer support",
-        email: site.email,
+        ...(site.confirmed.email ? { email: site.email } : {}),
         areaServed: "IN",
         availableLanguage: ["en", "hi", "mr"],
       },

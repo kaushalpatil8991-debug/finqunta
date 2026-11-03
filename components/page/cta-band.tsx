@@ -66,10 +66,9 @@ export function CtaBand({
   return (
     <section
       aria-labelledby={headingId}
-      className="relative overflow-hidden bg-ink text-cream"
+      className="relative overflow-hidden bg-night text-cream"
     >
-      <BandArt />
-      <div className="relative mx-auto flex max-w-[1280px] flex-col items-start gap-6 px-gutter py-12 sm:gap-8 sm:px-gutter-sm sm:py-16 md:flex-row md:items-center md:justify-between md:px-gutter-md md:py-20 lg:px-gutter-lg">
+      <div className="relative mx-auto flex max-w-[80rem] flex-col items-start gap-6 px-gutter py-12 sm:gap-8 sm:px-gutter-sm sm:py-16 md:flex-row md:items-center md:justify-between md:px-gutter-md md:py-20 lg:px-gutter-lg">
         <div className="max-w-2xl">
           <EyebrowLabel className="text-accent-sand">{eyebrow}</EyebrowLabel>
           {/* S19: Lora roman for the human sentence. Every control and number
@@ -110,32 +109,5 @@ export function CtaBand({
         </div>
       </div>
     </section>
-  );
-}
-
-function BandArt() {
-  return (
-    <svg
-      aria-hidden
-      viewBox="0 0 1440 320"
-      // `slice` crops the artwork to fill the band and keeps the rings round.
-      // `none` deformed them into ellipses at every breakpoint.
-      preserveAspectRatio="xMidYMid slice"
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient id="cta-grad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#7A4FB0" stopOpacity="0.25" />
-          <stop offset="50%" stopColor="#B99AD6" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#E8C89B" stopOpacity="0.18" />
-        </linearGradient>
-      </defs>
-      <rect width="1440" height="320" fill="url(#cta-grad)" />
-      <circle cx="1280" cy="80" r="120" stroke="#E8C89B" strokeWidth="1" strokeOpacity="0.35" fill="none" />
-      <circle cx="1280" cy="80" r="60" stroke="#E8C89B" strokeWidth="1" strokeOpacity="0.25" fill="none" />
-      <circle cx="160" cy="260" r="140" stroke="#B99AD6" strokeWidth="1" strokeOpacity="0.25" fill="none" />
-    </svg>
   );
 }

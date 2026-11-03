@@ -37,7 +37,7 @@ export const tiers: readonly PricingTier[] = z
     {
       id: "tier-gold",
       name: "Growth",
-      priceNote: "From ₹62,500 (multi-user)",
+      priceNote: "From ₹67,500 (multi-user)",
       blurb:
         "For small teams of 5–15 users who need multi-user access, GST workflow, and proactive support.",
       features: [

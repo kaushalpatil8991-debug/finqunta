@@ -99,7 +99,7 @@ export function LeadForm({
           />
         </Field>
         <Field id="phone" label="Mobile number" error={errors.phone?.message}>
-          <div className="flex h-11 w-full overflow-hidden rounded-md border border-cream-200 bg-white focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary">
+          <div className="flex h-11 w-full overflow-hidden rounded-md border border-field-edge bg-[var(--fq-tile)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary">
             <span className="inline-flex items-center bg-cream-100 px-3 text-body-sm font-semibold text-ink-500">
               +91
             </span>

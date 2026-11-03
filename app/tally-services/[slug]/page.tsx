@@ -69,7 +69,7 @@ export default async function ServiceDetailPage({
               { tone: "sand", label: "Named engineer" },
             ]}
             bullets={[
-              "Quote in 24 hours",
+              "Written quote before work starts",
               "Onboarding audit before cover starts",
               "Quarterly reviews, not silent delivery",
             ]}
@@ -114,7 +114,7 @@ export default async function ServiceDetailPage({
               {s.deliverables.map((d) => (
                 <li
                   key={d}
-                  className="flex gap-3 rounded-lg border border-cream-200 bg-white p-5"
+                  className="flex gap-3 rounded-lg border border-transparent bg-[var(--fq-card)] p-5"
                 >
                   <span
                     aria-hidden
@@ -156,7 +156,7 @@ export default async function ServiceDetailPage({
 
       <CtaBand
         title={`Ready to scope ${s.title}?`}
-        sub="30-minute scoping call; written quote and SoW same day."
+        sub="Book a 20-minute call. We follow up with a written quote and scope."
         source="enquiry"
         primaryLabel="Scope a contract"
       />

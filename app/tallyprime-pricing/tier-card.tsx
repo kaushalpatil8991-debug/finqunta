@@ -12,7 +12,7 @@ export function TierCard({ tier }: { tier: PricingTier }) {
   return (
     <li
       className={cn(
-        "relative flex h-full flex-col rounded-lg border bg-white p-8 shadow-[var(--shadow-card)]",
+        "relative flex h-full flex-col rounded-lg border bg-[var(--fq-card)] p-8 shadow-[var(--shadow-card)]",
         tier.recommended
           ? "border-primary bg-primary-50/50 ring-1 ring-primary"
           : "border-cream-200"
@@ -22,7 +22,7 @@ export function TierCard({ tier }: { tier: PricingTier }) {
         <div className="absolute -top-3 right-6">
           <Chip tone="plum">
             <Sparkles className="h-3 w-3" aria-hidden />
-            Most popular
+            Good for growing teams
           </Chip>
         </div>
       )}

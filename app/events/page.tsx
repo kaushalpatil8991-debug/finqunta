@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Calendar, MapPin, Sparkles } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeader } from "@/components/ui/section-header";
 import { PageHero } from "@/components/page/page-hero";
@@ -8,10 +8,12 @@ import { CtaBand } from "@/components/page/cta-band";
 import { eventsHero, events } from "@/content/pages/events";
 import type { Event } from "@/lib/schema";
 
+export const revalidate = 86400;
+
 export const metadata: Metadata = {
   title: "Events & workshops",
   description:
-    "Upcoming and past Finquanta webinars, workshops, and meetups — covering TallyPrime, GST, cloud migration, and MIS.",
+    "Finquanta webinars and workshops on TallyPrime, GST, cloud migration and MIS, plus private sessions for your team.",
   alternates: { canonical: "/events" },
 };
 
@@ -33,8 +35,11 @@ const kindTone: Record<Event["kind"], Parameters<typeof Chip>[0]["tone"]> = {
 };
 
 export default function EventsPage() {
-  const upcoming = events.filter((e) => e.status === "upcoming");
-  const past = events.filter((e) => e.status === "past");
+  // Decided by date, not the hand-set `status`, so a session drops off the
+  // list the day after it runs. The page re-renders daily (revalidate below).
+  // Past sessions are not listed: nothing confirms which drafts actually ran.
+  const today = new Date().toISOString().slice(0, 10);
+  const upcoming = events.filter((e) => e.date >= today);
 
   return (
     <>
@@ -56,15 +61,13 @@ export default function EventsPage() {
             eyebrow="Upcoming"
             title="What is on the calendar."
           />
-          <Chip tone="sand">
-            <Sparkles className="h-3 w-3" aria-hidden /> All sessions are free
-          </Chip>
         </div>
 
         {upcoming.length === 0 ? (
-          <p className="mt-10 rounded-lg border border-cream-200 bg-white p-8 text-center text-body text-ink-500">
-            No upcoming sessions right now — check back soon, or join the
-            newsletter at the foot of the page to get dates first.
+          <p className="mx-auto mt-10 max-w-2xl rounded-lg border border-transparent bg-[var(--fq-card)] p-8 text-center text-body text-ink-500">
+            No sessions are scheduled right now. New dates are listed here as
+            soon as they are fixed. Want a session for your own team? Use the
+            button below.
           </p>
         ) : (
           <ul className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -75,32 +78,6 @@ export default function EventsPage() {
         )}
       </SectionBand>
 
-      {past.length > 0 && (
-        <SectionBand tone="white">
-          <SectionHeader
-            eyebrow="Past"
-            title="Recordings from earlier sessions."
-            lead="Ask your Finquanta contact for the recording link — or drop a line via the enquiry form."
-          />
-          <ul className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {past.map((ev) => (
-              <li
-                key={ev.id}
-                className="flex flex-col gap-2 rounded-lg border border-cream-200 bg-cream p-5"
-              >
-                <div className="flex flex-wrap items-center gap-2">
-                  <Chip tone={kindTone[ev.kind]}>{ev.kind}</Chip>
-                  <span className="text-caption text-ink-500">
-                    {formatDate(ev.date)}
-                  </span>
-                </div>
-                <h3 className="text-h4 font-semibold text-ink">{ev.title}</h3>
-                <p className="text-body-sm text-ink-500">{ev.summary}</p>
-              </li>
-            ))}
-          </ul>
-        </SectionBand>
-      )}
 
       <CtaBand
         title="Want a workshop run inside your team?"
@@ -114,7 +91,7 @@ export default function EventsPage() {
 
 function EventCard({ ev }: { ev: Event }) {
   return (
-    <li className="flex h-full flex-col gap-3 rounded-lg border border-cream-200 bg-white p-6 shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]">
+    <li className="flex h-full flex-col gap-3 rounded-lg border border-transparent bg-[var(--fq-card)] p-6 shadow-[var(--shadow-card)] transition-[transform,scale,box-shadow,border-color,background-color,color,opacity] hover:scale-[1.02]">
       <div className="flex flex-wrap items-center gap-2">
         <Chip tone={kindTone[ev.kind]}>{ev.kind}</Chip>
       </div>

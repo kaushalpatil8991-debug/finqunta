@@ -67,7 +67,7 @@ export default function CareerPage() {
           title={`${openings.length} current openings.`}
           lead="Apply via email — a one-page cover note plus CV is enough to start."
         />
-        <ul className="mt-10 divide-y divide-cream-200 overflow-hidden rounded-lg border border-cream-200 bg-white">
+        <ul className="mt-10 divide-y divide-cream-200 overflow-hidden rounded-lg border border-transparent bg-[var(--fq-card)]">
           {openings.map((job) => (
             <li key={job.id}>
               <JobRow job={job} />
@@ -78,7 +78,11 @@ export default function CareerPage() {
 
       <CtaBand
         title="Don't see a role that fits?"
-        sub={`Write to ${site.email} with a one-page note on where you would fit. We read everything.`}
+        sub={
+          site.confirmed.email
+            ? `Write to ${site.email} with a one-page note on where you would fit. We read everything.`
+            : "Send us a one-page note on where you would fit. We read everything."
+        }
         source="enquiry"
         primaryLabel="Say hello"
       />
@@ -108,12 +112,14 @@ function JobRow({ job }: { job: JobOpening }) {
           {job.experience}
         </Chip>
       </div>
-      <Button asChild variant="outline" size="md">
-        <a href={`mailto:${site.email}?subject=${subject}`}>
-          Apply
-          <ArrowUpRight className="h-4 w-4" aria-hidden />
-        </a>
-      </Button>
+      {site.confirmed.email ? (
+        <Button asChild variant="outline" size="md">
+          <a href={`mailto:${site.email}?subject=${subject}`}>
+            Apply
+            <ArrowUpRight className="h-4 w-4" aria-hidden />
+          </a>
+        </Button>
+      ) : null}
     </div>
   );
 }

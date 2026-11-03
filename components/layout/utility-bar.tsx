@@ -21,7 +21,7 @@ import { TagPill } from "@/components/ui/tag-pill";
 export function UtilityBar() {
   return (
     <div className="hidden border-b border-hairline bg-cream-100 md:block">
-      <div className="mx-auto flex h-[42px] max-w-[1280px] items-center gap-5 px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto flex h-[42px] max-w-[80rem] items-center gap-5 px-gutter-md lg:px-gutter-lg">
         <TagPill left={site.partner.type} right={`Since ${site.founded}`} />
         <nav
           aria-label="Utility"

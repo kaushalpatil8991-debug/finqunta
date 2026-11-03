@@ -15,7 +15,7 @@ const raw: ProductDetail[] = [
     hero: {
       eyebrow: "TallyPrime",
       title: "TallyPrime — the accounting system most Indian SMEs already trust.",
-      sub: "Single-user (Silver) and multi-user (Gold) editions, on-premise or cloud-hosted. Finquanta sells at Tally's MRP, activates same day, and wraps it in training and support.",
+      sub: "Single-user (Silver) and multi-user (Gold) editions, on-premise or cloud-hosted. Finquanta sells at Tally's MRP, installs and activates it, and wraps it in training and support.",
       gradient: "plum",
     },
     features: [

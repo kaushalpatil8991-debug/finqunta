@@ -31,6 +31,7 @@ export default function PoliciesIndexPage() {
         sub={policiesHero.sub}
         gradient={policiesHero.gradient}
         crumbs={[{ label: "Home", href: "/" }, { label: "Policies" }]}
+        panel={false}
       />
 
       <SectionBand tone="cream">
@@ -44,7 +45,7 @@ export default function PoliciesIndexPage() {
             <li key={p.slug}>
               <Link
                 href={`/${p.slug}`}
-                className="group flex h-full flex-col rounded-lg border border-cream-200 bg-white p-6 shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-[var(--shadow-card-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="group flex h-full flex-col rounded-lg border border-transparent bg-[var(--fq-card)] p-6 shadow-[var(--shadow-card)] transition-[transform,scale,box-shadow,border-color,background-color,color,opacity] hover:scale-[1.02] hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 <p className="text-caption text-ink-500">
                   Updated {formatDate(p.lastUpdated)}

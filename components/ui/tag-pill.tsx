@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 const PILL_BASE =
   "inline-flex rounded-pill bg-accent-sand-100 font-sans text-sand-ink " +
-  "text-[11.5px] font-bold";
+  "text-[0.8125rem] font-bold";
 
 export interface TagPillProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** The category / qualifier half. */
@@ -31,7 +31,7 @@ export const TagPill = React.forwardRef<HTMLSpanElement, TagPillProps>(
       ref={ref}
       className={cn(
         PILL_BASE,
-        "items-stretch overflow-hidden tracking-[0.05em]",
+        "items-stretch overflow-hidden",
         className
       )}
       {...props}
@@ -57,7 +57,7 @@ export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
       className={cn(
         PILL_BASE,
         "items-center gap-[7px] whitespace-nowrap px-3 py-[5px]",
-        "uppercase tracking-[0.06em]",
+        "",
         className
       )}
       {...props}

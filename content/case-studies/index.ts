@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CaseStudyMetaSchema, type CaseStudyMeta } from "@/lib/schema";
+import { proof } from "@/content/proof";
 
 import { meta as nashikDistribution } from "./nashik-distribution.mdx";
 import { meta as punePharma } from "./pune-pharma.mdx";
@@ -11,11 +12,20 @@ import { meta as mumbaiNgo } from "./mumbai-ngo.mdx";
  * CaseStudyMetaSchema. Validated at module load; sorted newest-first
  * for the /case-study index.
  */
-export const caseStudies: readonly CaseStudyMeta[] = z
+/** Every written case study, confirmed or not. Do not render this list. */
+export const allCaseStudies: readonly CaseStudyMeta[] = z
   .array(CaseStudyMetaSchema)
   .parse([nashikDistribution, punePharma, nagpurManufacturer, mumbaiNgo])
   .slice()
   .sort((a, b) => b.date.localeCompare(a.date));
+
+/**
+ * Published case studies: only slugs listed in proof.confirmedCaseStudies
+ * (real story, client agreed to be named). Everything on the site reads this.
+ */
+export const caseStudies: readonly CaseStudyMeta[] = allCaseStudies.filter((c) =>
+  proof.confirmedCaseStudies.includes(c.slug)
+);
 
 export const caseStudyBySlug: Record<string, CaseStudyMeta> =
   Object.fromEntries(caseStudies.map((c) => [c.slug, c]));

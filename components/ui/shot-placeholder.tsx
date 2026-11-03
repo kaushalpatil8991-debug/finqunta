@@ -44,17 +44,17 @@ export const ShotPlaceholder = React.forwardRef<
     )}
     {...props}
   >
-    <span className="absolute left-[14px] top-3 font-sans text-[10px] font-extrabold uppercase tracking-[0.11em] text-ink-500">
+    <span className="absolute left-[14px] top-3 font-sans text-[0.75rem] font-extrabold text-ink-500">
       {id}
     </span>
-    <span className="absolute right-[14px] top-3 font-sans text-[10px] font-bold tracking-[0.06em] tabular-nums text-ink-500">
+    <span className="absolute right-[14px] top-3 font-sans text-[0.75rem] font-bold tabular-nums text-ink-500">
       {ratio.replace("/", ":")}
     </span>
     <span className="text-[15px] font-bold leading-[1.3] text-ink">
       {subject}
     </span>
     {note ? (
-      <span className="text-[11.5px] leading-[1.4] text-ink-500">{note}</span>
+      <span className="text-[0.8125rem] leading-[1.4] text-ink-500">{note}</span>
     ) : null}
   </div>
 ));

@@ -24,7 +24,7 @@ const productCards = toRelatedItems(BASE, productDetailBySlug, productSlugs);
 export const metadata: Metadata = {
   title: "Tally software — TallyPrime · Server · Auditor · TSS",
   description:
-    "Buy and support the full TallyPrime product line from one partner. Finquanta sells at MRP, activates same day, and wraps it in training and support.",
+    "Buy and support the full TallyPrime product line from one partner. Finquanta sells at MRP and wraps it in setup, training and support.",
   alternates: { canonical: "/tally-erp-9-products" },
 };
 
@@ -76,7 +76,7 @@ export default function TallyProductsPage() {
             {productsBullets.map((b) => (
               <li
                 key={b.title}
-                className="flex gap-3 rounded-lg border border-cream-200 bg-white p-5"
+                className="flex gap-3 rounded-lg border border-transparent bg-[var(--fq-card)] p-5"
               >
                 <span
                   aria-hidden
@@ -108,8 +108,8 @@ export default function TallyProductsPage() {
       </SectionBand>
 
       <CtaBand
-        title="Get a Tally quote in under 24 hours."
-        sub="Tell us your team size and stack; we send a line-item quote the same day."
+        title="Get an itemised Tally quote."
+        sub="Tell us your team size and setup, and we send a line-item quote."
         source="enquiry"
       />
     </>

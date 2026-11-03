@@ -150,7 +150,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
             // hairline per row, drawn on top, so rows read as a ledger.
             className="border-b-0 border-t border-hairline"
           >
-            <AccordionTrigger className="group gap-4 py-5 font-sans text-[16px] font-bold text-ink-700 data-[state=open]:text-ink">
+            <AccordionTrigger className="group gap-4 py-3 font-sans text-[16px] font-bold text-ink-700 data-[state=open]:text-ink">
               <span className="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
                 <span className="text-balance">{item.q}</span>
                 {values[i] && (
@@ -181,31 +181,20 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
           enquiry modal, so S24 holds: this is not a submit control (the submit
           inside the modal stays a 10px rectangle), and the pill radius here is
           S01's own row-terminator grammar, not a tag. */}
-      <button
-        type="button"
-        onClick={() => open("talk", { source: "talk-to-expert" })}
-        className={cn(
-          "group mt-6 flex w-full cursor-pointer items-center justify-between gap-4",
-          "rounded-pill border border-primary bg-transparent px-5 py-3.5 text-left",
-          "font-sans text-[15px] leading-tight text-ink-500",
-          "transition-colors duration-[var(--motion-fast)]",
-          "hover:bg-primary hover:text-white",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        )}
-      >
-        <span>
-          Still have a question?{" "}
-          <span className="font-bold text-primary group-hover:text-white">
-            Talk to an expert
-          </span>
-        </span>
-        <span
-          aria-hidden
-          className="grid h-9 w-9 flex-none place-items-center rounded-pill border border-primary text-primary transition-colors group-hover:border-white group-hover:text-white"
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-hairline-strong px-5 py-4">
+        <p className="m-0 font-sans text-[16px] text-ink-700">Still have a question?</p>
+        <button
+          type="button"
+          onClick={() => open("talk", { source: "talk-to-expert" })}
+          className={cn(
+            "inline-flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-pill bg-primary-600 px-5 py-3 font-sans text-[15px] font-bold text-on-dark",
+            "transition-colors duration-[var(--motion-fast)] hover:bg-primary",
+            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          )}
         >
-          <ArrowRight className="h-4 w-4" />
-        </span>
-      </button>
+          Talk to an expert
+        </button>
+      </div>
     </div>
   );
 }

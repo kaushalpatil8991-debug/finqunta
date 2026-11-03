@@ -215,7 +215,7 @@ export function BlogFilter({ posts, tags }: BlogFilterProps) {
             element per view, and that budget is spent on the inverted chip. */}
         <p
           id={labelId}
-          className="text-eyebrow font-bold uppercase tracking-[0.12em] text-ink-500"
+          className="text-eyebrow font-bold text-ink-500"
         >
           Filter by tag
         </p>
@@ -252,7 +252,7 @@ export function BlogFilter({ posts, tags }: BlogFilterProps) {
 
           `w-max max-w-full` keeps the container hugging its chips instead of
           trailing an empty white tail when the set is short. */}
-      <div className="mt-3 w-max max-w-full rounded-pill border border-hairline-strong bg-white">
+      <div className="mt-3 w-max max-w-full rounded-pill border border-hairline-strong bg-[var(--fq-card)]">
         <div
           ref={railRef}
           role="group"

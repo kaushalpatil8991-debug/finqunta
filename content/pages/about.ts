@@ -28,7 +28,7 @@ export const aboutPillars: readonly Feature[] = z.array(FeatureSchema).parse([
   {
     id: "pillar-2",
     title: "Indian SMEs are our home",
-    body: "From Mumbai chemists to Nashik distributors, we have wired Tally into the daily rhythm of hundreds of family-run and mid-sized businesses.",
+    body: "From Mumbai chemists to Nashik distributors, we have wired Tally into the daily rhythm of family-run and mid-sized businesses.",
     icon: "Building2",
   },
   {
@@ -40,7 +40,7 @@ export const aboutPillars: readonly Feature[] = z.array(FeatureSchema).parse([
   {
     id: "pillar-4",
     title: "Long-horizon support",
-    body: "Most of our oldest clients have been with us since 2018. When your Tally breaks on a Saturday, you still have a person to call.",
+    body: "One team that knows your setup, so when Tally breaks you call a person who has seen your books before.",
     icon: "Headphones",
   },
 ]);

@@ -45,7 +45,7 @@ export default function TallyIntegrationPage() {
 
       <SectionBand tone="white">
         <div className="mx-auto max-w-3xl rounded-lg border border-cream-200 bg-cream p-8">
-          <p className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-primary">
+          <p className="text-eyebrow font-semibold text-primary">
             Our promise
           </p>
           <p className="mt-3 text-h3 font-semibold text-ink">

@@ -89,7 +89,7 @@ function parseMetricValue(raw: string): ParsedMetric {
    Sand on ink measures 9.69:1; a plum flood on ink is 2.63:1 and reads as a
    smudge, which is why sand is the accent on every dark surface on this site. */
 const FIGURE_TYPE =
-  "font-sans font-extrabold leading-[0.95] tracking-[-0.025em] " +
+  "font-sans font-extrabold leading-[0.95] " +
   "tabular-nums-strict text-accent-sand";
 /* S16 ratio against the 11.5px label: 29/11.5 = 2.52x, 32/11.5 = 2.78x.
    Both steps clear 2.5x, including the mobile one. */
@@ -158,7 +158,7 @@ function MetricValue({ parsed }: { parsed: ParsedMetric }) {
 function HeadlineMetric({ metric }: { metric: CaseStudyMetric }) {
   return (
     <div className="flex flex-col-reverse gap-2 rounded-md bg-ink px-4 py-4 sm:px-5 sm:py-[18px]">
-      <dt className="text-[11.5px] font-semibold uppercase leading-[1.35] tracking-[0.06em] text-on-ink-muted">
+      <dt className="text-[0.8125rem] font-semibold leading-[1.35] text-on-ink-muted">
         {metric.label}
       </dt>
       <dd className="m-0">
@@ -213,11 +213,11 @@ export function CaseStudyCard({ study, className }: CaseStudyCardProps) {
       aria-labelledby={headingId}
       className={cn(
         "group relative flex h-full flex-col overflow-hidden rounded-lg",
-        "border border-hairline bg-white p-5 shadow-[var(--shadow-card)] sm:p-6",
-        "transition-all duration-[var(--motion-base)]",
+        "border border-hairline bg-[var(--fq-card)] p-5 shadow-[var(--shadow-card)] sm:p-6",
+        "transition-[transform,scale,box-shadow,border-color,background-color,color,opacity] duration-[var(--motion-base)]",
         // Neutral hover. The accent budget is spent on the ink cell below, so
         // the card edge darkens rather than turning plum.
-        "hover:-translate-y-0.5 hover:border-hairline-strong hover:shadow-[var(--shadow-card-hover)]",
+        "hover:scale-[1.02]",
         "focus-within:ring-2 focus-within:ring-primary",
         className
       )}

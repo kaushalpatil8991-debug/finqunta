@@ -118,7 +118,7 @@ export function SpecTable({
         // the contract's grouped form puts two of these on a single view
         // ("Platform" / "Licensing") — which is how grouping is expressed with
         // no schema change: render one SpecTable per group.
-        <p className="mb-4 text-eyebrow font-bold uppercase tracking-[0.12em] text-ink">
+        <p className="mb-4 text-eyebrow font-bold text-ink">
           {title}
         </p>
       )}

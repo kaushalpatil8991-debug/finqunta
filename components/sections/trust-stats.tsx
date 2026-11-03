@@ -48,7 +48,7 @@ export function TrustStats() {
       aria-labelledby="stats-heading"
       className="border-b border-hairline bg-cream py-section-mob md:py-section"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         <SectionHeader
           eyebrow="By the numbers"
           title={

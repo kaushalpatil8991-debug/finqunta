@@ -92,7 +92,7 @@ export default async function MobileAppDetailPage({
           />
           <span
             aria-hidden
-            className="hidden h-14 w-14 items-center justify-center rounded-md bg-white text-primary shadow-[var(--shadow-card)] md:flex"
+            className="hidden h-14 w-14 items-center justify-center rounded-md bg-[var(--fq-card)] text-primary shadow-[var(--shadow-card)] md:flex"
           >
             <Smartphone className="h-6 w-6" />
           </span>
@@ -112,7 +112,7 @@ export default async function MobileAppDetailPage({
             {m.capabilities.map((c) => (
               <li
                 key={c}
-                className="flex items-start gap-3 rounded-lg border border-cream-200 bg-cream-100 p-5"
+                className="flex items-start gap-3 rounded-lg border border-transparent bg-cream-100 p-5"
               >
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
                 <p className="text-body text-ink-700">{c}</p>

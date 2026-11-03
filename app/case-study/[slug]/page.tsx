@@ -94,9 +94,9 @@ export default async function CaseStudyDetailPage({
           {study.metrics.map((m) => (
             <li
               key={m.label}
-              className="rounded-lg border border-cream-200 bg-white p-5"
+              className="rounded-lg border border-transparent bg-[var(--fq-card)] p-5"
             >
-              <p className="text-caption font-semibold uppercase tracking-wide text-primary">
+              <p className="text-caption font-semibold text-primary">
                 {m.label}
               </p>
               <p className="mt-2 text-h3 font-bold text-ink tabular-nums-strict">
@@ -136,7 +136,7 @@ export default async function CaseStudyDetailPage({
 
       <CtaBand
         title="Ready to talk about your own engagement?"
-        sub="30-minute scoping call; written SoW the same day. No obligation."
+        sub="Book a 20-minute call. Tell us about your setup and we will suggest the next step."
         source="enquiry"
         primaryLabel="Scope an engagement"
       />

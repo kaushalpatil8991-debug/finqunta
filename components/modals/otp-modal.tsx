@@ -205,7 +205,7 @@ export function OtpModal({ open, phone, onClose }: OtpModalProps) {
               maxLength={1}
               aria-label={`Digit ${i + 1} of 6`}
               aria-invalid={!!error}
-              className="h-11 w-9 rounded-md border border-cream-200 bg-white text-center text-h4 font-bold text-ink focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-12 sm:w-10 sm:text-h3"
+              className="h-11 w-9 rounded-md border border-field-edge bg-[var(--fq-tile)] text-center text-h4 font-bold text-ink focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-12 sm:w-10 sm:text-h3"
             />
           ))}
         </motion.div>

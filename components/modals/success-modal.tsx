@@ -22,7 +22,7 @@ export function SuccessModal({ open, title, body, onClose }: SuccessModalProps) 
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent hideClose>
         <div className="flex flex-col items-center gap-3 text-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#e6f4ec] text-success">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-success-50 text-success">
             <CheckCircle2 className="h-7 w-7" aria-hidden />
           </span>
           <DialogHeader className="items-center text-center">

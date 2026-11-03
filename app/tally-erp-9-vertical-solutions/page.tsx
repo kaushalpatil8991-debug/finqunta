@@ -53,7 +53,7 @@ export default function VerticalSolutionsPage() {
 
       <SectionBand tone="white">
         <div className="mx-auto max-w-3xl rounded-lg border border-accent-sand-100 bg-accent-sand-100/40 p-8">
-          <p className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-[#7a5c0f]">
+          <p className="text-eyebrow font-semibold text-amber-ink">
             How packs are priced
           </p>
           <p className="mt-3 text-body-lg text-ink-700">{verticalNote}</p>

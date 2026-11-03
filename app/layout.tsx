@@ -1,41 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Lora, Noto_Sans_Devanagari } from "next/font/google";
+import { Plus_Jakarta_Sans, Noto_Sans_Devanagari } from "next/font/google";
 import { site } from "@/lib/site";
 import { env } from "@/lib/env";
 import { ModalProvider } from "@/components/modals/modal-context";
 import { ModalRoot } from "@/components/modals/modal-root";
-import { UtilityBar } from "@/components/layout/utility-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FloatingActions } from "@/components/layout/floating-actions";
-import { StickyCloudPromo } from "@/components/layout/sticky-cloud-promo";
 import { Gtm } from "@/components/analytics/gtm";
 import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
+import "@/components/layout/chrome.css";
 
-const manrope = Manrope({
+// 2026-10-30 redesign: one family for every voice — headings, sentences,
+// numbers and controls. Exposed as --font-jakarta and mapped in
+// styles/tokens.css to --font-sans, --font-serif and --font-serif-italic, so
+// existing `font-serif` call sites keep compiling and simply switch face.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
+  variable: "--font-jakarta",
   display: "swap",
 });
 
-// S19 type-voice law: Lora carries every human sentence — headings, the footer
-// wordmark, credentials. It previously loaded `style: ["italic"]` only, which
-// rendered every one of those in italic. Roman weights are the primary faces;
-// italic stays loaded so the existing `font-serif-italic` call sites are
-// unchanged. Exposed to CSS as --font-lora, mapped in styles/tokens.css to
-// both --font-serif (roman) and --font-serif-italic.
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-lora",
-  display: "swap",
-});
-
-// Manrope has no Devanagari coverage, so the Marathi and Hindi testimonial
+// Plus Jakarta Sans has no Devanagari coverage, so the Marathi and Hindi testimonial
 // quotes fall back to a system font. Not preloaded: it is needed by one band,
 // and preloading two extra faces on every route is a cost the rest of the site
 // does not pay for. Mapped in styles/tokens.css to --font-devanagari.
@@ -82,7 +71,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBF7F0",
+  themeColor: "#C7BCD5",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -101,7 +90,7 @@ export default function RootLayout({
       // deliberate — it serves the in-page anchors (#cloud, #testimonials, the
       // policy TOC) — so declare the intent and silence the warning.
       data-scroll-behavior="smooth"
-      className={`${manrope.variable} ${lora.variable} ${notoSansDevanagari.variable} antialiased`}
+      className={`${jakarta.variable} ${notoSansDevanagari.variable} antialiased`}
     >
       <body className="min-h-screen bg-cream text-ink font-sans flex flex-col">
         <Gtm />
@@ -116,7 +105,8 @@ export default function RootLayout({
         </a>
 
         <ModalProvider>
-          <UtilityBar />
+          {/* The utility bar stays off until the partner category, phone and
+              domain email are confirmed (home_page_content.md §1). */}
           <Header />
 
           <main id="main" className="flex-1">
@@ -126,7 +116,8 @@ export default function RootLayout({
           <Footer />
 
           <FloatingActions />
-          <StickyCloudPromo />
+          {/* StickyCloudPromo is off: the Tally on Cloud offer is unconfirmed
+              (home_page_content.md §8). */}
           <ModalRoot />
         </ModalProvider>
       </body>

@@ -134,7 +134,7 @@ export function DetailAside({
     <aside
       aria-labelledby={tagline ? taglineId : undefined}
       className={cn(
-        "rounded-lg border border-hairline bg-white p-5 shadow-[var(--shadow-card)] sm:p-6",
+        "rounded-lg border border-transparent bg-[var(--fq-card)] p-5 shadow-[var(--shadow-card)] sm:p-6",
         // Sticky on desktop, anchored 24px below the 68px sticky header — the
         // same 92px offset the prototype's `.panel` uses.
         // PRECONDITION, and it lives in components/page/detail-hero.tsx which is

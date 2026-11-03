@@ -152,7 +152,7 @@ export function Testimonials() {
       aria-labelledby="testimonials-heading"
       className="border-b border-hairline bg-cream-100 py-section-mob md:py-section"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         <div className="grid items-end gap-6 md:grid-cols-[1fr_auto]">
           <SectionHeader
             eyebrow="Happy users"

@@ -3,9 +3,6 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-6 px-gutter py-section text-center">
-      <p className="text-eyebrow uppercase tracking-[0.12em] text-primary">
-        404
-      </p>
       <h1 className="text-h1 font-bold text-ink">
         We could not find that page.
       </h1>

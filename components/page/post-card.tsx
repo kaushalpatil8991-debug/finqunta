@@ -46,7 +46,7 @@ const TAG_LABEL: Record<BlogTag, string> = {
  */
 const CHIP =
   "inline-block rounded-pill border border-hairline-strong px-[11px] py-1 " +
-  "text-[10.5px] font-bold uppercase leading-[1.4] tracking-[0.09em] text-ink-500";
+  "text-[0.8125rem] font-bold leading-[1.4] text-ink-500";
 
 function formatDate(iso: string) {
   return new Intl.DateTimeFormat("en-IN", {
@@ -84,12 +84,12 @@ export function PostCard({ post, className }: PostCardProps) {
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col rounded-lg border border-hairline bg-white p-5 shadow-[var(--shadow-card)] sm:p-6",
+        "group relative flex h-full flex-col rounded-lg border border-transparent bg-[var(--fq-card)] p-5 shadow-[var(--shadow-card)] sm:p-6",
         // cream-200 is ~1.2:1 on the cream band this grid sits on; ink/10
         // (border-hairline) is the sanctioned card edge.
-        "transition-[transform,box-shadow,border-color] duration-[var(--motion-fast)] ease-[var(--ease-out)]",
-        "hover:-translate-y-0.5 hover:border-hairline-strong hover:shadow-[var(--shadow-card-hover)]",
-        "motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+        "transition-[transform,scale,box-shadow,border-color] duration-[var(--motion-fast)] ease-[var(--ease-out)]",
+        "hover:scale-[1.02]",
+        "motion-reduce:transition-none motion-reduce:hover:scale-100",
         // S16: exactly one accented element. Hover accents the terminator only
         // — the border stays neutral so six hovering cards never bloom plum.
         // Outline (not `ring`) because a Tailwind ring is a box-shadow and

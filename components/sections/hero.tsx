@@ -184,7 +184,7 @@ export function Hero() {
       aria-label="Finquanta featured services"
       className="relative overflow-hidden border-b border-hairline bg-cream-100"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter pt-12 md:px-gutter-md md:pt-16 lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter pt-12 md:px-gutter-md md:pt-16 lg:px-gutter-lg">
         {/* The viewport must clip; the rail must not. Hence the wrapper. */}
         <div className="relative">
           <div ref={emblaRef} className="overflow-hidden">

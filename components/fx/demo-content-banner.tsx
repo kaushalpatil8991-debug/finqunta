@@ -26,7 +26,7 @@ export function DemoContentBanner({ count }: DemoContentBannerProps) {
 
   return (
     <div className="border-b border-accent-sand-100 bg-accent-sand-100/60 text-ink-700">
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-gutter py-2 text-caption md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto flex max-w-[80rem] items-center justify-between gap-4 px-gutter py-2 text-caption md:px-gutter-md lg:px-gutter-lg">
         <div className="flex items-center gap-2">
           <Info className="h-3.5 w-3.5 shrink-0 text-[#7a5c0f]" aria-hidden />
           <span>

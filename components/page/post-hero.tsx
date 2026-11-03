@@ -123,13 +123,13 @@ export function PostHero({
       {/* The only surviving use of the per-post gradient: a 3px identity edge. */}
       <div aria-hidden className={cn("h-[3px] w-full", gradientClass[gradient])} />
       {/*
-       * Same container as SectionBand (max-w-[1280px] + page gutters) with the
+       * Same container as SectionBand (max-w-[80rem] + page gutters) with the
        * max-w-3xl column nested inside it, so the H1 sits on exactly the same
        * measure as the article body below. The old `mx-auto max-w-3xl px-gutter`
        * subtracted the gutter from the 768px column instead, which indented the
        * hero 20–48px relative to the prose it introduces.
        */}
-      <div className="mx-auto max-w-[1280px] px-gutter py-12 sm:px-gutter-sm sm:py-16 md:px-gutter-md md:py-20 lg:px-gutter-lg lg:py-24">
+      <div className="mx-auto max-w-[80rem] px-gutter py-12 sm:px-gutter-sm sm:py-16 md:px-gutter-md md:py-20 lg:px-gutter-lg lg:py-24">
         <div className="mx-auto max-w-3xl">
           {trail.length > 0 && (
             /*
@@ -151,7 +151,7 @@ export function PostHero({
                     {item.href ? (
                       <Link
                         href={item.href}
-                        className="rounded-sm font-medium text-ink-700 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        className="inline-flex min-h-6 items-center rounded-sm font-medium text-ink-700 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       >
                         {item.label}
                       </Link>
@@ -186,7 +186,7 @@ export function PostHero({
               --text-display (56px) in a 768px measure runs to five lines. */}
           <h1
             id={headingId}
-            className="mt-3 text-balance font-serif text-h1-mob font-semibold leading-tight tracking-tight text-ink sm:text-display-mob md:text-h1"
+            className="mt-3 text-balance font-serif text-h1-mob font-extrabold leading-tight tracking-tight text-ink sm:text-display-mob md:text-h1"
           >
             {title}
           </h1>
@@ -205,7 +205,7 @@ export function PostHero({
            */}
           <dl className="mt-7 flex flex-wrap gap-x-10 gap-y-5 border-t border-hairline pt-5 sm:mt-8">
             <div>
-              <dt className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-ink-500">
+              <dt className="text-eyebrow font-semibold text-ink-500">
                 Published
               </dt>
               <dd className="m-0 mt-1.5 text-body-sm font-semibold tabular-nums text-ink-700">
@@ -213,7 +213,7 @@ export function PostHero({
               </dd>
             </div>
             <div>
-              <dt className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-ink-500">
+              <dt className="text-eyebrow font-semibold text-ink-500">
                 Written by
               </dt>
               <dd className="m-0 mt-1.5 text-body-sm font-semibold text-ink-700">
@@ -221,7 +221,7 @@ export function PostHero({
               </dd>
             </div>
             <div>
-              <dt className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-ink-500">
+              <dt className="text-eyebrow font-semibold text-ink-500">
                 Reading time
               </dt>
               <dd className="m-0 mt-1.5 text-body-sm font-semibold tabular-nums text-ink-700">

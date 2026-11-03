@@ -72,7 +72,7 @@ export function Awards() {
       aria-labelledby="awards-heading"
       className="border-b border-hairline bg-cream-100 py-section-mob md:py-section"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         {/* S38 section header — lead left, action right, aligned on the
             baseline. The "action" slot carries the band-level placeholder flag
             instead of a CTA. */}

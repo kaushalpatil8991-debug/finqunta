@@ -92,7 +92,7 @@ export default async function VerticalDetailPage({
                 className="flex items-start gap-3 rounded-lg border border-accent-sand-100 bg-accent-sand-100/40 p-5"
               >
                 <AlertTriangle
-                  className="mt-0.5 h-5 w-5 shrink-0 text-[#7a5c0f]"
+                  className="mt-0.5 h-5 w-5 shrink-0 text-amber-ink"
                   aria-hidden
                 />
                 <p className="text-body text-ink-700">{p}</p>
@@ -123,7 +123,7 @@ export default async function VerticalDetailPage({
             {v.outcomes.map((o) => (
               <li
                 key={o}
-                className="flex items-start gap-3 rounded-lg border border-cream-200 bg-white p-5"
+                className="flex items-start gap-3 rounded-lg border border-transparent bg-[var(--fq-card)] p-5"
               >
                 <CheckCircle2
                   className="mt-0.5 h-5 w-5 shrink-0 text-success"

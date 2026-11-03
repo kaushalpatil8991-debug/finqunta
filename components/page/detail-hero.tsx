@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/page/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/seo";
 import { cn } from "@/lib/utils";
+import { HeroQuickPanel } from "@/components/page/hero-quick-panel";
 import type { HeroGradient } from "@/lib/schema";
 
 interface Crumb {
@@ -88,6 +89,8 @@ export function DetailHero({
   // on any page rendering two heroes, and pointed both aria-labelledby
   // references at whichever one parsed first.
   const headingId = React.useId();
+  // 2026-10-30: pages without their own aside get the shared quick-help panel.
+  aside = aside ?? <HeroQuickPanel />;
 
   return (
     <section
@@ -106,7 +109,7 @@ export function DetailHero({
       )}
       <div
         className={cn(
-          "relative mx-auto grid max-w-[1280px] grid-cols-1 items-start gap-8 px-gutter py-12 sm:gap-10 sm:px-gutter-sm sm:py-16 md:px-gutter-md md:py-20 lg:gap-14 lg:px-gutter-lg lg:py-24",
+          "relative mx-auto grid max-w-[80rem] grid-cols-1 items-center gap-8 px-gutter py-12 sm:gap-10 sm:px-gutter-sm sm:py-16 md:px-gutter-md md:py-20 lg:gap-14 lg:px-gutter-lg lg:min-h-[min(calc(100svh-68px),760px)] lg:content-center lg:py-24",
           // Two columns only when there is something to put in the second one.
           // With the template applied unconditionally, an aside-less call site
           // left the H1 pinned to 58% of the container against dead space.
@@ -117,18 +120,19 @@ export function DetailHero({
           {crumbs && crumbs.length > 0 && (
             <Breadcrumbs items={crumbs} className="mb-5 sm:mb-6" />
           )}
-          {eyebrow && <EyebrowLabel>{eyebrow}</EyebrowLabel>}
+          {/* The breadcrumb names the page; the eyebrow prop is no longer printed (Hallmark gate 54). */}
+          {false && eyebrow && <EyebrowLabel>{eyebrow}</EyebrowLabel>}
           {/* S19: Lora roman carries the human sentence; text-balance keeps
               the rag even, which matters most on the 80-90 character titles
               this template ships. */}
           <h1
             id={headingId}
-            className="mt-3 max-w-3xl text-balance font-serif text-h1-mob font-semibold leading-tight tracking-tight text-ink sm:text-display-mob md:text-h1"
+            className="mt-3 max-w-3xl text-balance font-serif text-h1-mob font-extrabold leading-tight tracking-tight text-ink sm:text-display-mob md:text-h1"
           >
             {title}
           </h1>
           {sub && (
-            <p className="mt-4 max-w-2xl text-body text-ink-700 sm:mt-5 sm:text-body-lg">
+            <p className="mt-4 max-w-[62ch] text-body-lg text-ink-700 sm:mt-5 lg:text-[1.25rem] lg:leading-[1.6]">
               {sub}
             </p>
           )}

@@ -53,7 +53,7 @@ export const DialogContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed z-modal w-[calc(100%-2rem)] bg-white shadow-[var(--shadow-modal)] focus:outline-none",
+          "fixed z-modal w-[calc(100%-2rem)] bg-[var(--fq-tile)] shadow-[var(--shadow-modal)] focus:outline-none",
           "p-6 sm:p-8",
           sideClasses[side],
           "data-[state=open]:animate-in data-[state=closed]:animate-out",

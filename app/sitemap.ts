@@ -22,6 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const top = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
     { path: "/about-us", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/contact", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/tallyprime-buy-vs-rent", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/events", priority: 0.6, changeFrequency: "weekly" as const },
     { path: "/career", priority: 0.6, changeFrequency: "weekly" as const },
     { path: "/tallyprime-pricing", priority: 0.9, changeFrequency: "monthly" as const },
@@ -37,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tally-erp-9-add-ons-modules", priority: 0.7, changeFrequency: "monthly" as const },
     { path: "/policies", priority: 0.3, changeFrequency: "yearly" as const },
     { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
-    { path: "/case-study", priority: 0.8, changeFrequency: "monthly" as const },
   ];
 
   const products = productSlugs.map((s) => ({

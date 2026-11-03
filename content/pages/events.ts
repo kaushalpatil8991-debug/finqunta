@@ -9,7 +9,7 @@ import {
 export const eventsHero: PageHero = PageHeroSchema.parse({
   eyebrow: "Events & workshops",
   title: "Where we meet our customers (and would-be customers).",
-  sub: "Finquanta runs quarterly TallyPrime workshops, GST compliance clinics, and regional meetups for finance leaders. All sessions are free to attend.",
+  sub: "Workshops and webinars on TallyPrime, GST and MIS. Sessions are listed here once a date is fixed, and we also run private sessions for your own team.",
   gradient: "sand",
 });
 

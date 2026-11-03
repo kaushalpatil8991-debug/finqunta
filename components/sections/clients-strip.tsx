@@ -38,7 +38,7 @@ export function ClientsStrip() {
       aria-labelledby="clients-heading"
       className="border-b border-hairline py-section-mob md:py-section"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         <div
           className={cn(
             "grid grid-cols-1 gap-7",

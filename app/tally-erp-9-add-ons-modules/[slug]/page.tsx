@@ -87,7 +87,7 @@ export default async function AddonDetailPage({
           {Icon && (
             <span
               aria-hidden
-              className="hidden h-14 w-14 items-center justify-center rounded-md bg-white text-primary shadow-[var(--shadow-card)] md:flex"
+              className="hidden h-14 w-14 items-center justify-center rounded-md bg-[var(--fq-card)] text-primary shadow-[var(--shadow-card)] md:flex"
             >
               <Icon className="h-6 w-6" />
             </span>

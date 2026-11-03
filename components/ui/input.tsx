@@ -10,7 +10,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       ref={ref}
       type={type}
       className={cn(
-        "flex h-11 w-full rounded-md border border-cream-200 bg-white px-3 text-body text-ink placeholder:text-ink-300",
+        "flex h-11 w-full rounded-md border border-field-edge bg-[var(--fq-tile)] px-3 text-body text-ink placeholder:text-ink-300",
         "transition-colors duration-[var(--motion-fast)]",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
         "aria-[invalid=true]:border-warning aria-[invalid=true]:focus-visible:outline-warning",
@@ -30,7 +30,7 @@ export const Textarea = React.forwardRef<
   <textarea
     ref={ref}
     className={cn(
-      "flex min-h-[100px] w-full rounded-md border border-cream-200 bg-white px-3 py-2 text-body text-ink placeholder:text-ink-300",
+      "flex min-h-[100px] w-full rounded-md border border-field-edge bg-[var(--fq-tile)] px-3 py-2 text-body text-ink placeholder:text-ink-300",
       "transition-colors duration-[var(--motion-fast)]",
       "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
       "aria-[invalid=true]:border-warning aria-[invalid=true]:focus-visible:outline-warning",

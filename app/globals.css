@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
+/* Tailwind scans every file under the project for class names. This is not a
+ * git repository, so .gitignore exclusions do not apply and the scanner also
+ * read project_handover.md, which quotes a Windows path containing
+ * "--fq-…\eacd70…". Tailwind took that for a CSS variable with an invalid
+ * escape and the build crashed ("RangeError: Invalid code point 15388016").
+ * Exclude everything that is not app source: the frame sheets in public/,
+ * build output, backups, reference images, the static prototype and logs. */
+@source not "../public";
+@source not "../.next";
+@source not "../_backup";
+@source not "../FQ";
+@source not "../prototype";
+@source not "../Finquanta.jpeg";
+@source not "../fq.zip";
+@source not "../project_handover.md";
+@source not "../*.log";
+
 /* Tabular figures for aligned numerals.
  *
  * MUST be `@utility`, not a plain class in `@layer utilities`. Tailwind v4 can
@@ -14,6 +31,14 @@
 }
 
 @layer base {
+  /* No sideways scrolling at any width (Hallmark gate 34). clip, not hidden,
+     so position: sticky keeps working. */
+  html, body { overflow-x: clip; }
+  /* Large monitors: scale the whole rem-based layout up (type, spacing and the
+   * rem-sized content column) so a 2560px screen is not a narrow strip of small
+   * text. Phones to 1919px stay at 16px. */
+  @media (min-width: 1920px) { html { font-size: 17.5px; } }
+  @media (min-width: 2400px) { html { font-size: 20px; } }
   html {
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -49,16 +74,19 @@
   h1, h2, h3, h4, h5, h6 {
     color: var(--color-ink);
     letter-spacing: -0.01em;
+    text-wrap: balance;
   }
 }
 
 @layer utilities {
-  /* Named hero gradients (HeroSlide.gradient enum — spec §4.3) */
-  .gradient-plum { background: linear-gradient(135deg, #eee0f5 0%, #c7b8f5 100%); }
-  .gradient-mist { background: linear-gradient(135deg, #f3f5fc 0%, #dce1f5 100%); }
-  .gradient-sand { background: linear-gradient(135deg, #fbf7f0 0%, #f5e4c7 100%); }
-  .gradient-violet { background: linear-gradient(135deg, #f7effa 0%, #b99ad6 100%); }
-  .gradient-cream-gold { background: linear-gradient(135deg, #fbf7f0 0%, #e8c89b 100%); }
+  /* Named hero gradients (HeroSlide.gradient enum — spec §4.3).
+     2026-10-30 redesign: all five retuned into the lavender family so inner
+     pages no longer open on the old peach / blue washes. Names unchanged. */
+  .gradient-plum { background: var(--color-cream-100); }
+  .gradient-mist { background: var(--color-cream-100); }
+  .gradient-sand { background: var(--color-cream-100); }
+  .gradient-violet { background: var(--color-cream-100); }
+  .gradient-cream-gold { background: var(--color-cream-100); }
 
   /* Z-index scale (spec §2.4) */
   .z-base { z-index: 0; }
@@ -97,8 +125,8 @@
   @keyframes fq-slide-out-bottom { from { transform: translateY(0) } to { transform: translateY(100%) } }
   @keyframes fq-slide-in-left   { from { transform: translateX(-12px); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
   @keyframes fq-slide-out-left  { from { transform: translateX(0); opacity: 1 } to { transform: translateX(-12px); opacity: 0 } }
-  @keyframes fq-accordion-down { from { height: 0 } to { height: var(--radix-accordion-content-height) } }
-  @keyframes fq-accordion-up   { from { height: var(--radix-accordion-content-height) } to { height: 0 } }
+  @keyframes fq-accordion-down { from { opacity: 0; transform: translateY(-4px) } to { opacity: 1; transform: none } }
+  @keyframes fq-accordion-up   { from { opacity: 1 } to { opacity: 0 } }
 
   /* ——————————————————— Header / nav motion (design: "Finquanta Header Fix") ———
    * Staggered mega-panel column reveal + a slow looping sheen on the primary CTA.
@@ -117,7 +145,7 @@
     left: 0;
     width: 42%;
     height: 100%;
-    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.4), transparent);
+    background: linear-gradient(100deg, transparent, var(--fq-white-a40), transparent);
     animation: fq-sheen 5s var(--ease-out) infinite;
     pointer-events: none;
   }

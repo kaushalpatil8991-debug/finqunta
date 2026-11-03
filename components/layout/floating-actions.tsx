@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CompoundCta } from "@/components/ui/compound-cta";
 import { useModal } from "@/components/modals/modal-context";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 
 /**
@@ -41,9 +42,14 @@ import { site } from "@/lib/site";
 export function FloatingActions() {
   const { state, open: openModal } = useModal();
   const reduced = usePrefersReducedMotion();
+  const pathname = usePathname();
 
-  // Hide the cluster entirely while any modal is up.
-  if (state.type !== null) return null;
+  // Hide the cluster entirely while any modal is up. Until the phone number is
+  // confirmed the cluster would only repeat the header's "Book a call", and on
+  // the 3D home page it covered the animation, so it stays off.
+  // The home page's first screen already carries Book a call / WhatsApp, and
+  // the floating cluster covered its facts line, so it stays off on "/".
+  if (state.type !== null || !site.confirmed.phone || pathname === "/") return null;
 
   return (
     <motion.div
@@ -56,6 +62,10 @@ export function FloatingActions() {
       }
       className="fixed bottom-4 right-4 z-fab flex items-center gap-2.5 sm:bottom-6 sm:right-6"
     >
+      {/* WhatsApp and call satellites render only once the number is
+          confirmed (lib/site.ts → confirmed.phone). */}
+      {site.confirmed.phone ? (
+        <>
       <Button
         variant="ghost"
         size="iconRound"
@@ -66,9 +76,9 @@ export function FloatingActions() {
         <a href={site.whatsapp.url} target="_blank" rel="noreferrer noopener">
           <MessageCircle className="h-5 w-5" aria-hidden />
         </a>
-      </Button>
+        </Button>
 
-      <Button
+        <Button
         variant="ghost"
         size="iconRound"
         aria-label="Call us"
@@ -78,13 +88,16 @@ export function FloatingActions() {
         <a href={`tel:${site.phone.tel}`}>
           <Phone className="h-5 w-5" aria-hidden />
         </a>
-      </Button>
+        </Button>
+
+        </>
+      ) : null}
 
       {/* aria-label is not belt-and-braces: below 640px the label span is
           display:none, which removes it from the accessibility tree too, so
           this is the button's only accessible name at that width. */}
       <CompoundCta
-        aria-label="Talk to an expert"
+        aria-label="Book a call"
         onClick={() => openModal("talk")}
         className={
           "shadow-float pl-2 pr-2 sm:pl-5 sm:pr-2 " +
@@ -92,7 +105,7 @@ export function FloatingActions() {
           "motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         }
       >
-        Talk to an expert
+        Book a call
       </CompoundCta>
     </motion.div>
   );
@@ -105,7 +118,7 @@ export function FloatingActions() {
  * control. Ghost supplies the geometry; the colours are the prototype's.
  */
 const SATELLITE =
-  "h-[50px] w-[50px] border border-hairline-strong bg-white text-ink " +
+  "h-[50px] w-[50px] border border-white/70 bg-white/70 text-ink backdrop-blur-md " +
   "shadow-float transition-transform duration-[var(--motion-base)] " +
-  "hover:-translate-y-0.5 hover:bg-white " +
+  "hover:-translate-y-0.5 hover:bg-[var(--fq-tile)] " +
   "motion-reduce:transition-none motion-reduce:hover:translate-y-0";

@@ -5,6 +5,7 @@ import { SectionBand } from "@/components/page/section-band";
 import { CaseStudyCard } from "@/components/page/case-study-card";
 import { CtaBand } from "@/components/page/cta-band";
 import { caseStudies } from "@/content/case-studies";
+import { ProofSlot } from "@/components/proof/trust";
 
 export const metadata: Metadata = {
   title: "Case studies",
@@ -18,25 +19,36 @@ export default function CaseStudyIndexPage() {
     <>
       <PageHero
         eyebrow="Case studies"
-        title="Real engagements. Real numbers. Real customers."
-        sub="Every case study here is a customer we shipped against — with the setup they had, the stack we deployed, and the measurable outcome. Names are the customer's actual business."
+        title="Customer stories, with their numbers."
+        sub="Each story covers the setup a customer had, what we changed, and what they measured afterwards. We publish one only when the customer agrees to be named."
         gradient="sand"
         crumbs={[{ label: "Home", href: "/" }, { label: "Case studies" }]}
       />
 
       <SectionBand tone="cream">
-        <SectionHeader
-          eyebrow={`${caseStudies.length} case studies`}
-          title="From distribution to NGOs."
-          lead="Short reads (5–8 minutes) with the numbers you can measure against your own setup."
-        />
-        <ul className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {caseStudies.map((c) => (
-            <li key={c.slug} className="relative">
-              <CaseStudyCard study={c} />
-            </li>
-          ))}
-        </ul>
+        {caseStudies.length > 0 ? (
+          <>
+            <SectionHeader
+              title="From distribution to NGOs."
+              lead="Short reads with numbers you can measure against your own setup."
+            />
+            <ul className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+              {caseStudies.map((c) => (
+                <li key={c.slug} className="relative">
+                  <CaseStudyCard study={c} />
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <div className="grid gap-4">
+            <SectionHeader
+              title="The first stories are being written up."
+              lead="We are collecting customer sign-off before publishing. Want to hear how a similar business set up Tally? Book a call and ask."
+            />
+            <ProofSlot what="Case studies are hidden until confirmed. List the real ones in proof.confirmedCaseStudies." />
+          </div>
+        )}
       </SectionBand>
 
       <CtaBand

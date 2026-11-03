@@ -21,7 +21,7 @@ export function CallbackModal({ open, onClose }: CallbackModalProps) {
         <DialogHeader>
           <DialogTitle>Request a call back</DialogTitle>
           <DialogDescription>
-            Drop your number and a short note — we will call you back at the
+            Drop your number and a short note, and we will call you back at the
             earliest mutually-convenient time.
           </DialogDescription>
         </DialogHeader>

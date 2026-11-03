@@ -92,7 +92,7 @@ export function Offerings() {
       aria-labelledby="offerings-heading"
       className="border-b border-hairline bg-cream-100 py-section-mob md:py-section"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         <SectionHeader
           eyebrow="We cater to your needs"
           title={<span id="offerings-heading">Everything Tally, under one roof</span>}

@@ -44,7 +44,8 @@ export function SectionHeader({
 
   const text = (
     <div className={cn("max-w-3xl", centered && "mx-auto text-center")}>
-      {eyebrow && <EyebrowLabel>{eyebrow}</EyebrowLabel>}
+      {/* 2026-10-30: the eyebrow prop is accepted but no longer printed — the heading opens the section (Hallmark gate 54). */}
+      {false && eyebrow && <EyebrowLabel>{eyebrow}</EyebrowLabel>}
       <Heading
         className={cn(
           "mt-2 font-serif font-semibold tracking-tight text-balance text-ink",

@@ -109,7 +109,7 @@ export default async function OgImage() {
               fontWeight: 600,
             }}
           >
-            Sales · Support · Solutions
+            Sales, support and solutions
           </div>
         </div>
       </div>

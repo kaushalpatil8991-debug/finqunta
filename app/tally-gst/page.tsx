@@ -41,7 +41,7 @@ export default function TallyGstPage() {
       </SectionBand>
 
       <SectionBand tone="white">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <SectionHeader
             eyebrow="FAQs"
             title="GST questions we hear most often."

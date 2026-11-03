@@ -39,7 +39,7 @@ export const PlaceholderFlag = React.forwardRef<
     className={cn(
       "inline-flex items-center gap-[5px] align-middle",
       "rounded-pill bg-warning-tint px-[7px] py-[2px]",
-      "font-sans text-[9.5px] font-bold uppercase tracking-[0.08em]",
+      "font-sans text-[9.5px] font-bold",
       "whitespace-nowrap text-warning",
       // The dot is the marker's only ornament and is purely presentational,
       // so it is drawn as a pseudo-element rather than an announced node.

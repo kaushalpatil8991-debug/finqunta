@@ -61,8 +61,8 @@ export const productsFeatures: readonly Feature[] = z
 
 export const productsBullets = [
   {
-    title: "Same-day activation",
-    body: "Quote to installed-and-activated usually within 24 hours. Often sooner.",
+    title: "Installed and activated for you",
+    body: "We install the licence, activate it on your machines and check your company opens correctly before we hand over.",
   },
   {
     title: "Original licences",

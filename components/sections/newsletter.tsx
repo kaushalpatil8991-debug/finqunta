@@ -43,7 +43,7 @@ import { NewsletterForm } from "@/components/forms/newsletter-form";
 export function Newsletter() {
   return (
     <section aria-labelledby="newsletter-heading" className="bg-ink py-[72px]">
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         {/* Prototype `.ctab .in`: 1fr / auto, 36px gap, centred, collapsing to
             one column on narrow screens. */}
         <div className="grid items-center gap-9 lg:grid-cols-[minmax(0,1fr)_460px]">

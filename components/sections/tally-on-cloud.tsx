@@ -63,7 +63,7 @@ export function TallyOnCloud() {
       aria-labelledby="cloud-heading"
       className="border-b border-hairline bg-cream py-section-mob md:py-section"
     >
-      <div className="mx-auto max-w-[1280px] px-gutter md:px-gutter-md lg:px-gutter-lg">
+      <div className="mx-auto max-w-[80rem] px-gutter md:px-gutter-md lg:px-gutter-lg">
         {/* S38 section header — eyebrow, lead, sub. */}
         <div className="mb-8 max-w-[56ch] md:mb-[34px]">
           <EyebrowLabel className="text-ink-500">Tally on Cloud</EyebrowLabel>

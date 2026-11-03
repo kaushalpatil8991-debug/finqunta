@@ -66,7 +66,7 @@ export default function TallyServicesPage() {
       </SectionBand>
 
       <SectionBand tone="cream-alt">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <SectionHeader
             eyebrow="FAQs"
             title="Questions customers ask before signing."
@@ -80,7 +80,7 @@ export default function TallyServicesPage() {
 
       <CtaBand
         title="Move from break-fix to calm cover."
-        sub="Book a 30-minute scoping call. We send a written AMC quote the same day with SLAs in plain language."
+        sub="Book a 20-minute call. We follow up with a written AMC quote, with response times in plain language."
         source="enquiry"
         primaryLabel="Scope an AMC"
       />
